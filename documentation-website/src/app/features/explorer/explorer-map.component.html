@@ -1,11 +1,11 @@
 <app-doc-layout spyKey="explorer-map">
   <app-page-header
-    heading="Mapa do sistema"
-    lead="Todos os componentes do repositório: o que cada um faz, em qual porta escuta e com quem se relaciona. Abra um card para ver tecnologias, dependências, endpoints, respostas e erros."
+    [heading]="ui().mapTitle"
+    [lead]="ui().mapLead"
   />
 
   @for (kind of kinds; track kind) {
-    <app-section [sectionId]="kind" [heading]="kindLabel[kind]">
+      <app-section [sectionId]="kind" [heading]="kindLabel()[kind]">
       <div class="grid">
         @for (service of of(kind); track service.id) {
           <a class="card" [routerLink]="'/explorador/servicos/' + service.id" [attr.data-kind]="service.kind">
@@ -21,7 +21,7 @@
                 <li class="chip">{{ tech }}</li>
               }
             </ul>
-            <span class="card__more">Abrir ficha <app-icon name="arrow-right" /></span>
+            <span class="card__more">{{ ui().openCard }} <app-icon name="arrow-right" /></span>
           </a>
         }
       </div>
@@ -29,7 +29,7 @@
   }
 
   <p class="hint">
-    Quer a lista plana de rotas REST?
-    <a routerLink="/explorador/endpoints">Abra o catálogo de endpoints</a>.
+    {{ ui().flatRoutes }}
+    <a routerLink="/explorador/endpoints">{{ ui().openCatalog }}</a>.
   </p>
 </app-doc-layout>

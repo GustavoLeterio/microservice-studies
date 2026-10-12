@@ -1,12 +1,14 @@
-import { ChangeDetectionStrategy, Component, computed, input } from '@angular/core';
+import { ChangeDetectionStrategy, Component, computed, inject, input } from '@angular/core';
+import { UI } from '../../../core/i18n/ui-text';
+import { LocaleService, watchLocale } from '../../../core/services/locale.service';
 import { CalloutVariant } from '../../models/doc.models';
 import { IconName } from '../icon/icons';
 
-const VARIANTS: Record<CalloutVariant, { icon: IconName; label: string }> = {
-  info: { icon: 'info', label: 'Nota' },
-  tip: { icon: 'lightbulb', label: 'Dica' },
-  warning: { icon: 'warning', label: 'Atenção' },
-  danger: { icon: 'danger', label: 'Cuidado' },
+const ICONS: Record<CalloutVariant, IconName> = {
+  info: 'info',
+  tip: 'lightbulb',
+  warning: 'warning',
+  danger: 'danger',
 };
 
 @Component({
@@ -24,8 +26,21 @@ const VARIANTS: Record<CalloutVariant, { icon: IconName; label: string }> = {
   styleUrl: './callout.component.scss',
 })
 export class CalloutComponent {
+  private readonly locale = inject(LocaleService);
+  private readonly localeWatch = watchLocale();
+
   readonly variant = input<CalloutVariant>('info');
   readonly title = input<string>();
 
-  protected readonly meta = computed(() => VARIANTS[this.variant()]);
+  protected readonly meta = computed(() => {
+    const ui = UI[this.locale.lang()];
+    const labels: Record<CalloutVariant, string> = {
+      info: ui.calloutInfo,
+      tip: ui.calloutTip,
+      warning: ui.calloutWarning,
+      danger: ui.calloutDanger,
+    };
+    const variant = this.variant();
+    return { icon: ICONS[variant], label: labels[variant] };
+  });
 }

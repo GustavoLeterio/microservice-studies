@@ -3,7 +3,9 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { NavigationEnd, Router } from '@angular/router';
 import { filter } from 'rxjs';
 import { NavPage, NavTopic } from '../../shared/models/navigation.models';
+import { NAVIGATION_EN } from '../data/navigation.en';
 import { NAVIGATION } from '../data/navigation.data';
+import { LocaleService } from './locale.service';
 
 export interface FlatNavPage extends NavPage {
   topic: NavTopic;
@@ -12,10 +14,11 @@ export interface FlatNavPage extends NavPage {
 @Injectable({ providedIn: 'root' })
 export class NavigationService {
   private readonly router = inject(Router);
+  private readonly locale = inject(LocaleService);
 
-  readonly topics: readonly NavTopic[] = NAVIGATION;
-  readonly pages: readonly FlatNavPage[] = NAVIGATION.flatMap((topic) =>
-    topic.pages.map((page) => ({ ...page, topic })),
+  readonly topics = computed(() => (this.locale.lang() === 'en' ? NAVIGATION_EN : NAVIGATION));
+  readonly pages = computed(() =>
+    this.topics().flatMap((topic) => topic.pages.map((page) => ({ ...page, topic }))),
   );
 
   private readonly url = signal(this.router.url);
@@ -23,24 +26,24 @@ export class NavigationService {
 
   readonly sidebarOpen = signal(false);
   readonly currentPath = computed(() => this.url().split(/[?#]/)[0] || '/');
-  readonly activePage = computed(() => this.pages.find((page) => page.path === this.currentPath()) ?? null);
+  readonly activePage = computed(() => this.pages().find((page) => page.path === this.currentPath()) ?? null);
   readonly activeTopic = computed(() => {
     const path = this.currentPath();
     return (
       this.activePage()?.topic ??
-      this.topics.find((topic) => path === topic.basePath || path.startsWith(`${topic.basePath}/`)) ??
+      this.topics().find((topic) => path === topic.basePath || path.startsWith(`${topic.basePath}/`)) ??
       null
     );
   });
   readonly neighbours = computed(() => {
-    const index = this.pages.findIndex((page) => page.path === this.currentPath());
+    const pages = this.pages();
+    const index = pages.findIndex((page) => page.path === this.currentPath());
     if (index < 0) return { previous: null, next: null };
-    return { previous: this.pages[index - 1] ?? null, next: this.pages[index + 1] ?? null };
+    return { previous: pages[index - 1] ?? null, next: pages[index + 1] ?? null };
   });
 
   constructor() {
-    const topic = this.activeTopic();
-    if (topic) this.expand(topic.id);
+    this.expandAll();
 
     this.router.events
       .pipe(
@@ -75,7 +78,7 @@ export class NavigationService {
   }
 
   expandAll(): void {
-    this.expanded.set(new Set(this.topics.map((topic) => topic.id)));
+    this.expanded.set(new Set(this.topics().map((topic) => topic.id)));
   }
 
   collapseAll(): void {

@@ -1,4 +1,6 @@
-import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
+import { ChangeDetectionStrategy, Component, computed, inject } from '@angular/core';
+import { UI } from '../../../core/i18n/ui-text';
+import { LocaleService, watchLocale } from '../../../core/services/locale.service';
 import { NavigationService } from '../../../core/services/navigation.service';
 
 @Component({
@@ -8,10 +10,10 @@ import { NavigationService } from '../../../core/services/navigation.service';
   template: `
     @let links = nav.neighbours();
     @if (links.previous || links.next) {
-      <nav class="pager" aria-label="Navegação entre páginas">
+      <nav class="pager" [attr.aria-label]="ui().pager">
         @if (links.previous; as previous) {
           <a class="pager__link" [routerLink]="previous.path">
-            <span class="pager__hint"><app-icon name="arrow-left" /> Anterior</span>
+            <span class="pager__hint"><app-icon name="arrow-left" /> {{ ui().previous }}</span>
             <span class="pager__title">{{ previous.title }}</span>
             <span class="pager__topic">{{ previous.topic.title }}</span>
           </a>
@@ -20,7 +22,7 @@ import { NavigationService } from '../../../core/services/navigation.service';
         }
         @if (links.next; as next) {
           <a class="pager__link pager__link--next" [routerLink]="next.path">
-            <span class="pager__hint">Próximo <app-icon name="arrow-right" /></span>
+            <span class="pager__hint">{{ ui().next }} <app-icon name="arrow-right" /></span>
             <span class="pager__title">{{ next.title }}</span>
             <span class="pager__topic">{{ next.topic.title }}</span>
           </a>
@@ -95,4 +97,7 @@ import { NavigationService } from '../../../core/services/navigation.service';
 })
 export class PagerComponent {
   protected readonly nav = inject(NavigationService);
+  private readonly locale = inject(LocaleService);
+  protected readonly ui = computed(() => UI[this.locale.lang()]);
+  private readonly localeWatch = watchLocale();
 }

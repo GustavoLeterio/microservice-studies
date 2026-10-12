@@ -1,4 +1,6 @@
-import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component, computed, inject } from '@angular/core';
+import { UI } from '../../core/i18n/ui-text';
+import { LocaleService, watchLocale } from '../../core/services/locale.service';
 
 @Component({
   selector: 'app-not-found',
@@ -7,11 +9,11 @@ import { ChangeDetectionStrategy, Component } from '@angular/core';
   template: `
     <div class="missing">
       <p class="missing__code">404</p>
-      <h1>Página não encontrada</h1>
-      <p>Esse caminho não existe na documentação. Volte ao início ou abra o explorador do sistema.</p>
+      <h1>{{ ui().notFoundTitle }}</h1>
+      <p>{{ ui().notFoundLead }}</p>
       <div class="missing__actions">
-        <a class="btn btn--primary" routerLink="/">Início</a>
-        <a class="btn btn--ghost" routerLink="/explorador">Explorar sistema</a>
+        <a class="btn btn--primary" routerLink="/">{{ ui().home }}</a>
+        <a class="btn btn--ghost" routerLink="/explorador">{{ ui().explore }}</a>
       </div>
     </div>
   `,
@@ -40,4 +42,8 @@ import { ChangeDetectionStrategy, Component } from '@angular/core';
     }
   `,
 })
-export class NotFoundComponent {}
+export class NotFoundComponent {
+  private readonly locale = inject(LocaleService);
+  protected readonly ui = computed(() => UI[this.locale.lang()]);
+  private readonly localeWatch = watchLocale();
+}

@@ -4,17 +4,17 @@
     class="icon-button header__menu"
     aria-controls="sidebar"
     [attr.aria-expanded]="nav.sidebarOpen()"
-    [attr.aria-label]="nav.sidebarOpen() ? 'Fechar menu' : 'Abrir menu'"
+    [attr.aria-label]="nav.sidebarOpen() ? ui().closeMenu : ui().openMenu"
     (click)="nav.toggleSidebar()"
   >
     <app-icon [name]="nav.sidebarOpen() ? 'close' : 'menu'" />
   </button>
 
-  <a class="brand" routerLink="/" aria-label="Página inicial da documentação">
+  <a class="brand" routerLink="/" [attr.aria-label]="ui().homeAria">
     <span class="brand__logo"><app-icon name="box" /></span>
     <span class="brand__text">
       <strong>E-commerce Microservices</strong>
-      <small>Documentação técnica</small>
+      <small>{{ ui().docs }}</small>
     </span>
   </a>
 
@@ -23,13 +23,45 @@
   <div class="header__actions">
     <a class="header__explore" routerLink="/explorador" [class.is-active]="nav.activeTopic()?.id === 'explorador'">
       <app-icon name="compass" />
-      <span>Explorar sistema</span>
+      <span>{{ ui().explore }}</span>
     </a>
+    <div class="lang-switch" role="group" [attr.aria-label]="ui().language">
+      <button
+        type="button"
+        class="lang-switch__btn"
+        [class.is-active]="locale.lang() === 'pt'"
+        [attr.aria-pressed]="locale.lang() === 'pt'"
+        [attr.aria-label]="ui().portuguese"
+        [attr.title]="ui().portuguese"
+        (click)="locale.use('pt')"
+      >
+        <svg class="flag" viewBox="0 0 20 14" aria-hidden="true">
+          <rect width="20" height="14" fill="#009C3B" />
+          <polygon points="10,1.2 18.6,7 10,12.8 1.4,7" fill="#FFDF00" />
+          <circle cx="10" cy="7" r="2.35" fill="#002776" />
+        </svg>
+      </button>
+      <button
+        type="button"
+        class="lang-switch__btn"
+        [class.is-active]="locale.lang() === 'en'"
+        [attr.aria-pressed]="locale.lang() === 'en'"
+        [attr.aria-label]="ui().english"
+        [attr.title]="ui().english"
+        (click)="locale.use('en')"
+      >
+        <svg class="flag" viewBox="0 0 21 14" aria-hidden="true">
+          <rect width="7" height="14" fill="#169B62" />
+          <rect x="7" width="7" height="14" fill="#FFFFFF" />
+          <rect x="14" width="7" height="14" fill="#FF883E" />
+        </svg>
+      </button>
+    </div>
     <button
       type="button"
       class="icon-button"
-      [attr.aria-label]="theme.theme() === 'dark' ? 'Usar tema claro' : 'Usar tema escuro'"
-      [attr.title]="theme.theme() === 'dark' ? 'Tema claro' : 'Tema escuro'"
+      [attr.aria-label]="theme.theme() === 'dark' ? ui().lightTheme : ui().darkTheme"
+      [attr.title]="theme.theme() === 'dark' ? ui().lightThemeShort : ui().darkThemeShort"
       (click)="theme.toggle()"
     >
       <app-icon [name]="theme.theme() === 'dark' ? 'sun' : 'moon'" />

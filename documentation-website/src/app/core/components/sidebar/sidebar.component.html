@@ -1,17 +1,17 @@
-<aside class="sidebar" id="sidebar" [class.is-open]="nav.sidebarOpen()" aria-label="Navegação da documentação">
+<aside class="sidebar" id="sidebar" [class.is-open]="nav.sidebarOpen()" [attr.aria-label]="ui().nav">
   <div class="sidebar__inner">
     <a class="home-link" routerLink="/" routerLinkActive="is-active" [routerLinkActiveOptions]="{ exact: true }">
       <app-icon name="home" />
-      Início
+      {{ ui().home }}
     </a>
 
     <div class="sidebar__tools">
-      <button type="button" (click)="nav.expandAll()">Expandir</button>
-      <button type="button" (click)="nav.collapseAll()">Recolher</button>
+      <button type="button" (click)="nav.expandAll()">{{ ui().expand }}</button>
+      <button type="button" (click)="nav.collapseAll()">{{ ui().collapse }}</button>
     </div>
 
     <nav class="topics">
-      @for (topic of nav.topics; track topic.id) {
+      @for (topic of nav.topics(); track topic.id) {
         <section class="topic" [class.is-expanded]="nav.isExpanded(topic.id)" [class.is-current]="nav.activeTopic()?.id === topic.id">
           <button
             type="button"
@@ -25,7 +25,8 @@
             <app-icon class="topic__chevron" name="chevron-down" />
           </button>
 
-          <div class="topic__pages" [id]="'topic-' + topic.id" [hidden]="!nav.isExpanded(topic.id)">
+          @if (nav.isExpanded(topic.id)) {
+          <div class="topic__pages" [id]="'topic-' + topic.id">
             @for (page of topic.pages; track page.path) {
               @if (page.group) {
                 <p class="topic__group">{{ page.group }}</p>
@@ -57,6 +58,7 @@
               }
             }
           </div>
+          }
         </section>
       }
     </nav>

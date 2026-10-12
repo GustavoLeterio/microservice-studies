@@ -1,21 +1,21 @@
 @if (service(); as service) {
   <app-doc-layout [spyKey]="service">
-    <app-page-header [heading]="service.name" [lead]="service.tagline" [eyebrow]="kindLabel[service.kind]" />
+    <app-page-header [heading]="service.name" [lead]="service.tagline" [eyebrow]="kindLabel()[service.kind]" />
 
-    <app-section sectionId="sobre" heading="O que faz">
+    <app-section sectionId="sobre" [heading]="ui().whatItDoes">
       <p class="prose">{{ service.description }}</p>
-      <h3 class="sub">Responsabilidades</h3>
+      <h3 class="sub">{{ ui().responsibilities }}</h3>
       <ul class="prose">
         @for (item of service.responsibilities; track item) {
           <li>{{ item }}</li>
         }
       </ul>
       <div class="meta">
-        <p><strong>Acesso</strong> {{ service.access }}</p>
+        <p><strong>{{ ui().access }}</strong> {{ service.access }}</p>
         @if (service.database) {
-          <p><strong>Persistência</strong> {{ service.database }}</p>
+          <p><strong>{{ ui().persistence }}</strong> {{ service.database }}</p>
         }
-        <p><strong>Imagem</strong> {{ service.image }}</p>
+        <p><strong>{{ ui().image }}</strong> {{ service.image }}</p>
       </div>
       @if (service.links?.length) {
         <ul class="links">
@@ -28,7 +28,7 @@
       }
     </app-section>
 
-    <app-section sectionId="tecnologias" heading="Tecnologias">
+    <app-section sectionId="tecnologias" [heading]="ui().technologies">
       <ul class="chip-list">
         @for (tech of service.technologies; track tech) {
           <li class="chip">{{ tech }}</li>
@@ -37,15 +37,15 @@
     </app-section>
 
     @if (service.dependencies?.length) {
-      <app-section sectionId="dependencias" heading="Dependências">
+      <app-section sectionId="dependencias" [heading]="ui().dependencies">
         <div class="table-wrap">
           <table class="doc-table">
             <thead>
               <tr>
-                <th>Artefato</th>
-                <th>Escopo</th>
-                <th>Origem</th>
-                <th>Para quê</th>
+                <th>{{ ui().artifact }}</th>
+                <th>{{ ui().scope }}</th>
+                <th>{{ ui().origin }}</th>
+                <th>{{ ui().purpose }}</th>
               </tr>
             </thead>
             <tbody>
@@ -64,7 +64,7 @@
     }
 
     @if (service.relations?.length) {
-      <app-section sectionId="relacoes" heading="Relações">
+      <app-section sectionId="relacoes" [heading]="ui().relations">
         @for (relation of service.relations; track relation.label) {
           <p class="relation">
             <strong>{{ relation.label }}</strong>
@@ -77,7 +77,7 @@
     }
 
     @if (service.routes?.length) {
-      <app-section sectionId="rotas" heading="Rotas do gateway">
+      <app-section sectionId="rotas" [heading]="ui().gatewayRoutes">
         <div class="table-wrap">
           <table class="doc-table">
             <thead>
@@ -112,7 +112,7 @@
     }
 
     @if (service.endpointGroups?.length) {
-      <app-section sectionId="endpoints" heading="Endpoints">
+      <app-section sectionId="endpoints" [heading]="ui().endpoints">
         @for (group of service.endpointGroups; track group.title) {
           <h3 class="sub">{{ group.title }} <code>{{ group.basePath }}</code></h3>
           @if (group.description) {
@@ -128,15 +128,15 @@
     }
 
     @if (service.exceptions?.length) {
-      <app-section sectionId="exceptions" heading="Exceptions">
+      <app-section sectionId="exceptions" [heading]="ui().exceptions">
         <div class="table-wrap">
           <table class="doc-table">
             <thead>
               <tr>
                 <th>Exception</th>
                 <th>Status</th>
-                <th>Quando</th>
-                <th>Handler</th>
+                <th>{{ ui().when }}</th>
+                <th>{{ ui().handler }}</th>
               </tr>
             </thead>
             <tbody>
@@ -155,14 +155,14 @@
     }
 
     @if (service.env?.length) {
-      <app-section sectionId="env" heading="Variáveis de ambiente">
+      <app-section sectionId="env" [heading]="ui().env">
         <div class="table-wrap">
           <table class="doc-table">
             <thead>
               <tr>
-                <th>Nome</th>
-                <th>Valor típico</th>
-                <th>Para quê</th>
+                <th>{{ ui().name }}</th>
+                <th>{{ ui().typicalValue }}</th>
+                <th>{{ ui().purpose }}</th>
               </tr>
             </thead>
             <tbody>
@@ -180,7 +180,7 @@
     }
 
     @if (service.config?.length) {
-      <app-section sectionId="config" heading="Configuração">
+      <app-section sectionId="config" [heading]="ui().configuration">
         @for (snippet of service.config; track snippet.file ?? $index) {
           <app-code-block
             [code]="snippet.code"
@@ -193,13 +193,13 @@
     }
 
     @if (service.sourceFiles?.length) {
-      <app-section sectionId="fontes" heading="Arquivos-fonte">
+      <app-section sectionId="fontes" [heading]="ui().sourceFiles">
         <div class="table-wrap">
           <table class="doc-table">
             <thead>
               <tr>
-                <th>Arquivo</th>
-                <th>Papel</th>
+                <th>{{ ui().file }}</th>
+                <th>{{ ui().role }}</th>
               </tr>
             </thead>
             <tbody>
@@ -214,7 +214,7 @@
         </div>
         @if (service.docs?.length) {
           <p class="docs">
-            Leitura relacionada:
+            {{ ui().relatedReading }}:
             @for (doc of service.docs; track doc.path) {
               <a [routerLink]="doc.path">{{ doc.label }}</a>
             }
@@ -225,7 +225,7 @@
   </app-doc-layout>
 } @else {
   <app-doc-layout [showToc]="false">
-    <app-page-header heading="Serviço não encontrado" lead="Esse id não existe no catálogo." />
-    <p><a routerLink="/explorador">Voltar ao mapa</a></p>
+    <app-page-header [heading]="ui().serviceMissing" [lead]="ui().serviceMissingLead" />
+    <p><a routerLink="/explorador">{{ ui().backToMap }}</a></p>
   </app-doc-layout>
 }

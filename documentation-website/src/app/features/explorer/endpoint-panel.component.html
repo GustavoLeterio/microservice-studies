@@ -7,7 +7,7 @@
   @if (endpoint().description) {
     <p class="endpoint__desc">{{ endpoint().description }}</p>
   }
-  <p class="endpoint__handler"><span>Handler</span> {{ endpoint().handler }}</p>
+  <p class="endpoint__handler"><span>{{ ui().handler }}</span> {{ endpoint().handler }}</p>
 
   @if (endpoint().params?.length) {
     <h4>Parâmetros</h4>
@@ -15,10 +15,10 @@
       <table class="doc-table">
         <thead>
           <tr>
-            <th>Nome</th>
-            <th>Em</th>
-            <th>Tipo</th>
-            <th>Descrição</th>
+            <th>{{ ui().name }}</th>
+            <th>{{ ui().in }}</th>
+            <th>{{ ui().type }}</th>
+            <th>{{ ui().description }}</th>
           </tr>
         </thead>
         <tbody>
@@ -36,15 +36,15 @@
   }
 
   @if (endpoint().body; as body) {
-    <h4>Corpo · {{ body.type }}</h4>
+    <h4>{{ ui().body }} · {{ body.type }}</h4>
     <div class="table-wrap">
       <table class="doc-table">
         <thead>
           <tr>
-            <th>Campo</th>
-            <th>Tipo</th>
-            <th>Obrigatório</th>
-            <th>Regras</th>
+            <th>{{ ui().field }}</th>
+            <th>{{ ui().type }}</th>
+            <th>{{ ui().required }}</th>
+            <th>{{ ui().rules }}</th>
           </tr>
         </thead>
         <tbody>
@@ -52,17 +52,17 @@
             <tr>
               <td><code>{{ field.name }}</code></td>
               <td><code>{{ field.type }}</code></td>
-              <td>{{ field.required ? 'sim' : 'não' }}</td>
+              <td>{{ field.required ? ui().yes : ui().no }}</td>
               <td>{{ field.rules || '—' }}</td>
             </tr>
           }
         </tbody>
       </table>
     </div>
-    <app-code-block [code]="body.example" language="json" caption="Exemplo de request body" />
+    <app-code-block [code]="body.example" language="json" [caption]="ui().requestExample" />
   }
 
-  <h4>Respostas de sucesso</h4>
+  <h4>{{ ui().successResponses }}</h4>
   @for (response of endpoint().responses; track response.status) {
     <div class="result">
       <p class="result__meta">
@@ -78,9 +78,9 @@
     </div>
   }
 
-  <h4>Erros possíveis</h4>
+  <h4>{{ ui().possibleErrors }}</h4>
   @if (!endpoint().errors.length) {
-    <p class="muted">Nenhum erro de domínio documentado nesta rota (falhas de infraestrutura ainda podem ocorrer).</p>
+    <p class="muted">{{ ui().noDomainErrors }}</p>
   }
   @for (error of endpoint().errors; track error.status + error.cause) {
     <div class="result">
@@ -90,7 +90,7 @@
         </span>
         {{ error.cause }}
       </p>
-      <p class="muted">Fonte: {{ error.source }}</p>
+      <p class="muted">{{ ui().source }}: {{ error.source }}</p>
       @if (error.example) {
         <app-code-block [code]="error.example" language="json" />
       }

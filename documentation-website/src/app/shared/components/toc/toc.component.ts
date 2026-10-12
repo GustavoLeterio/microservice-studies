@@ -1,4 +1,6 @@
-import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
+import { ChangeDetectionStrategy, Component, computed, inject } from '@angular/core';
+import { UI } from '../../../core/i18n/ui-text';
+import { LocaleService, watchLocale } from '../../../core/services/locale.service';
 import { PageContextService } from '../../../core/services/page-context.service';
 
 @Component({
@@ -7,7 +9,7 @@ import { PageContextService } from '../../../core/services/page-context.service'
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     @if (context.sections().length) {
-      <p class="toc__title"><app-icon name="list" /> Nesta página</p>
+      <p class="toc__title"><app-icon name="list" /> {{ ui().onThisPage }}</p>
       <ul class="toc__list">
         @for (section of context.sections(); track section.id) {
           <li>
@@ -71,4 +73,7 @@ import { PageContextService } from '../../../core/services/page-context.service'
 })
 export class TocComponent {
   protected readonly context = inject(PageContextService);
+  private readonly locale = inject(LocaleService);
+  protected readonly ui = computed(() => UI[this.locale.lang()]);
+  private readonly localeWatch = watchLocale();
 }

@@ -1,4 +1,6 @@
-import { ChangeDetectionStrategy, Component, input } from '@angular/core';
+import { ChangeDetectionStrategy, Component, computed, inject, input } from '@angular/core';
+import { UI } from '../../../core/i18n/ui-text';
+import { LocaleService, watchLocale } from '../../../core/services/locale.service';
 import { DocBlock } from '../../models/doc.models';
 
 /** Renderiza a lista de blocos de conteúdo de uma seção (texto, código, tabelas, diagramas...). */
@@ -10,5 +12,8 @@ import { DocBlock } from '../../models/doc.models';
   styleUrl: './doc-blocks.component.scss',
 })
 export class DocBlocksComponent {
+  private readonly locale = inject(LocaleService);
+  protected readonly ui = computed(() => UI[this.locale.lang()]);
+  private readonly localeWatch = watchLocale();
   readonly blocks = input.required<DocBlock[]>();
 }

@@ -1,20 +1,26 @@
 import { Routes } from '@angular/router';
+import { AppLocale } from '../../core/services/locale.service';
 import { DocPageComponent } from '../components/doc-page/doc-page.component';
 import { DocPage } from '../models/doc.models';
 
-/**
- * Gera as rotas de um módulo de documentação a partir de { slug: página }.
- * A primeira página vira o destino padrão do tópico e o conteúdo chega ao DocPageComponent pelo input `page`.
- */
-export function docRoutes(pages: Record<string, DocPage>): Routes {
-  const slugs = Object.keys(pages);
+export interface LocalizedPages {
+  pt: Record<string, DocPage>;
+  en: Record<string, DocPage>;
+}
+
+export type LocalizedPage = Record<AppLocale, DocPage>;
+
+/** Rotas de um tópico. O DocPageComponent escolhe pt ou en conforme o idioma ativo. */
+export function docRoutes(pages: LocalizedPages): Routes {
+  const slugs = Object.keys(pages.pt);
   return [
     { path: '', pathMatch: 'full', redirectTo: slugs[0] },
     ...slugs.map((slug) => ({
       path: slug,
       component: DocPageComponent,
-      title: pages[slug].title,
-      data: { page: pages[slug] },
+      data: {
+        page: { pt: pages.pt[slug], en: pages.en[slug] } satisfies LocalizedPage,
+      },
     })),
   ];
 }

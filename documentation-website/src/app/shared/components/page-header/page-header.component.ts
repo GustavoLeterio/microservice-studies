@@ -1,4 +1,6 @@
-import { ChangeDetectionStrategy, Component, inject, input } from '@angular/core';
+import { ChangeDetectionStrategy, Component, computed, inject, input } from '@angular/core';
+import { UI } from '../../../core/i18n/ui-text';
+import { LocaleService, watchLocale } from '../../../core/services/locale.service';
 import { NavigationService } from '../../../core/services/navigation.service';
 
 @Component({
@@ -7,8 +9,8 @@ import { NavigationService } from '../../../core/services/navigation.service';
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <header class="page-header">
-      <nav class="breadcrumbs" aria-label="Você está em">
-        <a routerLink="/">Início</a>
+      <nav class="breadcrumbs" [attr.aria-label]="ui().home">
+        <a routerLink="/">{{ ui().home }}</a>
         @if (nav.activeTopic(); as topic) {
           <app-icon name="chevron-right" />
           <a [routerLink]="topic.pages[0].path">{{ topic.title }}</a>
@@ -32,4 +34,7 @@ export class PageHeaderComponent {
   readonly eyebrow = input<string>();
 
   protected readonly nav = inject(NavigationService);
+  private readonly locale = inject(LocaleService);
+  protected readonly ui = computed(() => UI[this.locale.lang()]);
+  private readonly localeWatch = watchLocale();
 }

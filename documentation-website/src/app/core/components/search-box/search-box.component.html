@@ -1,13 +1,13 @@
 <div class="search" [class.is-open]="open() && query().trim().length > 0">
   <label class="search__field">
-    <span class="visually-hidden">Buscar na documentação</span>
+    <span class="visually-hidden">{{ ui().searchLabel }}</span>
     <app-icon class="search__icon" name="search" />
     <input
       #field
       type="search"
       autocomplete="off"
       spellcheck="false"
-      placeholder="Buscar páginas, serviços, endpoints..."
+      [placeholder]="ui().searchPlaceholder"
       role="combobox"
       aria-controls="search-results"
       aria-autocomplete="list"
@@ -25,7 +25,7 @@
   @if (open() && query().trim().length > 0) {
     <div class="search__panel">
       @if (results().length) {
-        <ul id="search-results" class="results" role="listbox" aria-label="Resultados da busca">
+        <ul id="search-results" class="results" role="listbox" [attr.aria-label]="ui().searchResults">
           @for (item of results(); track item.kind + item.path + (item.fragment ?? '')) {
             <li
               class="result"
@@ -37,7 +37,7 @@
               (mouseenter)="activeIndex.set($index)"
               (click)="select(item)"
             >
-              <span class="result__kind" [attr.data-kind]="item.kind">{{ kindLabel[item.kind] }}</span>
+              <span class="result__kind" [attr.data-kind]="item.kind">{{ kindLabel()[item.kind] }}</span>
               <span class="result__body">
                 <span class="result__title">
                   @if (item.method) {
@@ -51,9 +51,9 @@
           }
         </ul>
       } @else {
-        <p class="search__empty">Nada encontrado para "{{ query() }}".</p>
+        <p class="search__empty">{{ ui().searchEmpty }} "{{ query() }}".</p>
       }
-      <p class="search__hint"><kbd>↑</kbd><kbd>↓</kbd> navegar · <kbd>Enter</kbd> abrir · <kbd>Esc</kbd> fechar</p>
+      <p class="search__hint"><kbd>↑</kbd><kbd>↓</kbd> {{ ui().searchHint }}</p>
     </div>
   }
 </div>

@@ -128,3 +128,11 @@ export const SERVICE_KIND_LABEL: Record<ServiceKind, string> = {
   dados: 'Dados',
   observabilidade: 'Observabilidade',
 };
+
+export const SERVICE_KIND_LABEL_EN: Record<ServiceKind, string> = {
+  negocio: 'Business',
+  plataforma: 'Platform',
+  biblioteca: 'Library',
+  dados: 'Data',
+  observabilidade: 'Observability',
+};

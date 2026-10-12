@@ -1,5 +1,7 @@
 import { ChangeDetectionStrategy, Component, ElementRef, computed, inject, signal, viewChild } from '@angular/core';
 import { Router } from '@angular/router';
+import { UI } from '../../i18n/ui-text';
+import { LocaleService, watchLocale } from '../../services/locale.service';
 import { SearchEntry, SearchService } from '../../services/search.service';
 
 @Component({
@@ -17,15 +19,21 @@ export class SearchBoxComponent {
   private readonly searchService = inject(SearchService);
   private readonly input = viewChild.required<ElementRef<HTMLInputElement>>('field');
 
+  private readonly locale = inject(LocaleService);
+  private readonly localeWatch = watchLocale();
+
   protected readonly query = signal('');
   protected readonly open = signal(false);
   protected readonly activeIndex = signal(0);
+  protected readonly ui = computed(() => UI[this.locale.lang()]);
   protected readonly results = computed(() => this.searchService.search(this.query()));
-  protected readonly kindLabel: Record<SearchEntry['kind'], string> = {
-    page: 'Página',
-    service: 'Serviço',
-    endpoint: 'Endpoint',
-  };
+  protected readonly kindLabel = computed(
+    (): Record<SearchEntry['kind'], string> => ({
+      page: this.ui().kindPage,
+      service: this.ui().kindService,
+      endpoint: this.ui().kindEndpoint,
+    }),
+  );
 
   protected onInput(value: string): void {
     this.query.set(value);

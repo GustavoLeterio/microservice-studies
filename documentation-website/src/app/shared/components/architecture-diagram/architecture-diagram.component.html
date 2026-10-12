@@ -2,28 +2,28 @@
   <div class="arch__grid">
     <div class="arch__main">
       <div class="lane lane--client">
-        <span class="lane__label">Clientes externos</span>
+        <span class="lane__label">{{ ui().externalClients }}</span>
         <div class="lane__clients">
-          <span class="client">Navegador</span>
+          <span class="client">{{ ui().browser }}</span>
           <span class="client">Postman / curl</span>
           <span class="client">Swagger UI</span>
         </div>
       </div>
 
-      <div class="connector"><span>HTTP :8222 · tráfego norte-sul</span></div>
+      <div class="connector"><span>{{ ui().northSouth }}</span></div>
 
       <a class="node node--gateway" routerLink="/explorador/servicos/api-gateway">
-        <span class="node__kind">Porta de entrada</span>
+        <span class="node__kind">{{ ui().entryPoint }}</span>
         <span class="node__name">api-gateway <small>:8222</small></span>
-        <span class="node__detail">Spring Cloud Gateway (WebFlux) · rotas lb://</span>
+        <span class="node__detail">{{ ui().gatewayDetail }}</span>
       </a>
 
       <div class="connector"><span>lb:// · Spring Cloud LoadBalancer + Eureka</span></div>
 
       <div class="lane lane--services">
-        @for (service of services; track service.id) {
+        @for (service of services(); track service.id) {
           <a class="node node--service" [routerLink]="'/explorador/servicos/' + service.id">
-            <span class="node__kind">Microserviço{{ service.replicas ? ' · ×N' : '' }}</span>
+            <span class="node__kind">{{ ui().microservice }}{{ service.replicas ? ' · ×N' : '' }}</span>
             <span class="node__name">{{ service.name }} <small>{{ service.port }}</small></span>
             <span class="node__detail">{{ service.detail }}</span>
           </a>
@@ -31,8 +31,8 @@
       </div>
 
       <div class="eastwest">
-        <span class="eastwest__badge">leste-oeste</span>
-        <span><strong>cart-microservice</strong> consulta <strong>customer</strong> e <strong>product</strong> via OpenFeign + LoadBalancer</span>
+        <span class="eastwest__badge">{{ ui().eastWest }}</span>
+        <span><strong>cart-microservice</strong> {{ ui().eastWestDetail }}</span>
       </div>
 
       <div class="lane lane--data">
@@ -47,32 +47,32 @@
 
     <div class="arch__side">
       <div class="panel panel--platform">
-        <p class="panel__title">Plataforma</p>
+        <p class="panel__title">{{ ui().platform }}</p>
         <a class="node node--platform" routerLink="/explorador/servicos/config-server">
           <span class="node__name">config-server <small>:8888</small></span>
-          <span class="node__detail">Configuração centralizada</span>
+          <span class="node__detail">{{ ui().centralizedConfig }}</span>
         </a>
         <a class="node node--platform" routerLink="/explorador/servicos/discovery-server">
           <span class="node__name">discovery-server <small>:8761</small></span>
-          <span class="node__detail">Eureka · registro de serviços</span>
+          <span class="node__detail">{{ ui().eurekaDetail }}</span>
         </a>
-        <p class="panel__note">Todos os serviços buscam suas properties no Config Server e se registram no Eureka.</p>
+        <p class="panel__note">{{ ui().platformNote }}</p>
       </div>
 
       <div class="panel panel--observability">
-        <p class="panel__title">Observabilidade</p>
+        <p class="panel__title">{{ ui().observability }}</p>
         <a class="node node--observability" routerLink="/explorador/servicos/prometheus">
           <span class="node__name">Prometheus <small>:9090</small></span>
-          <span class="node__detail">Coleta /actuator/prometheus via Eureka</span>
+          <span class="node__detail">{{ ui().prometheusDetail }}</span>
         </a>
         <a class="node node--observability" routerLink="/explorador/servicos/grafana">
           <span class="node__name">Grafana <small>:3000</small></span>
-          <span class="node__detail">Dashboards sobre o Prometheus</span>
+          <span class="node__detail">{{ ui().grafanaDetail }}</span>
         </a>
       </div>
 
       <div class="panel panel--library">
-        <p class="panel__title">Biblioteca interna</p>
+        <p class="panel__title">{{ ui().internalLibrary }}</p>
         <a class="node node--library" routerLink="/explorador/servicos/common-exceptions">
           <span class="node__name">common-exceptions</span>
           <span class="node__detail">ErrorResponse + GlobalExceptionHandler</span>
@@ -80,5 +80,5 @@
       </div>
     </div>
   </div>
-  <figcaption class="arch__caption">Clique em qualquer componente para abrir os detalhes no Explorador do sistema.</figcaption>
+  <figcaption class="arch__caption">{{ ui().diagramCaption }}</figcaption>
 </figure>

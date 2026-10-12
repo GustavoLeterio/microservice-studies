@@ -1,7 +1,9 @@
-import { Injectable } from '@angular/core';
-import { SYSTEM_SERVICES } from '../../shared/data/system';
-import { HttpMethod, SERVICE_KIND_LABEL } from '../../shared/models/system.models';
+import { Injectable, computed, inject } from '@angular/core';
+import { servicesFor } from '../../shared/data/system';
+import { HttpMethod, SERVICE_KIND_LABEL, SERVICE_KIND_LABEL_EN } from '../../shared/models/system.models';
+import { NAVIGATION_EN } from '../data/navigation.en';
 import { NAVIGATION } from '../data/navigation.data';
+import { LocaleService } from './locale.service';
 
 export type SearchKind = 'page' | 'service' | 'endpoint';
 
@@ -44,43 +46,51 @@ const entry = (
 
 @Injectable({ providedIn: 'root' })
 export class SearchService {
-  private readonly entries: readonly SearchEntry[] = [
-    ...NAVIGATION.flatMap((topic) =>
-      topic.pages
-        .filter((page) => !page.path.startsWith('/explorador/servicos/'))
-        .map((page) => entry('page', page.title, topic.title, page.path, [page.summary, ...(page.keywords ?? [])])),
-    ),
-    ...SYSTEM_SERVICES.map((service) =>
-      entry(
-        'service',
-        service.name,
-        `${SERVICE_KIND_LABEL[service.kind]} · ${service.tagline}`,
-        `/explorador/servicos/${service.id}`,
-        [service.description, ...service.technologies, service.port ?? ''],
+  private readonly locale = inject(LocaleService);
+
+  private readonly entries = computed(() => {
+    const lang = this.locale.lang();
+    const navigation = lang === 'en' ? NAVIGATION_EN : NAVIGATION;
+    const services = servicesFor(lang);
+    const labels = lang === 'en' ? SERVICE_KIND_LABEL_EN : SERVICE_KIND_LABEL;
+    return [
+      ...navigation.flatMap((topic) =>
+        topic.pages
+          .filter((page) => !page.path.startsWith('/explorador/servicos/'))
+          .map((page) => entry('page', page.title, topic.title, page.path, [page.summary, ...(page.keywords ?? [])])),
       ),
-    ),
-    ...SYSTEM_SERVICES.flatMap((service) =>
-      (service.endpointGroups ?? []).flatMap((group) =>
-        group.endpoints.map((endpoint) =>
-          entry(
-            'endpoint',
-            endpoint.path,
-            `${service.name} · ${endpoint.summary}`,
-            `/explorador/servicos/${service.id}`,
-            [endpoint.method, endpoint.handler, group.title],
-            { method: endpoint.method, fragment: endpoint.id },
+      ...services.map((service) =>
+        entry(
+          'service',
+          service.name,
+          `${labels[service.kind]} · ${service.tagline}`,
+          `/explorador/servicos/${service.id}`,
+          [service.description, ...service.technologies, service.port ?? ''],
+        ),
+      ),
+      ...services.flatMap((service) =>
+        (service.endpointGroups ?? []).flatMap((group) =>
+          group.endpoints.map((endpoint) =>
+            entry(
+              'endpoint',
+              endpoint.path,
+              `${service.name} · ${endpoint.summary}`,
+              `/explorador/servicos/${service.id}`,
+              [endpoint.method, endpoint.handler, group.title],
+              { method: endpoint.method, fragment: endpoint.id },
+            ),
           ),
         ),
       ),
-    ),
-  ];
+    ];
+  });
 
   search(query: string, limit = 10): SearchEntry[] {
     const normalizedQuery = normalize(query.trim());
     const tokens = normalizedQuery.split(/\s+/).filter(Boolean);
     if (!tokens.length) return [];
 
-    return this.entries
+    return this.entries()
       .filter((item) => tokens.every((token) => item.haystack.includes(token)))
       .map((item) => ({ item, score: this.score(item, normalizedQuery, tokens) }))
       .sort((a, b) => b.score - a.score)

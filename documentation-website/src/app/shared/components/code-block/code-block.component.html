@@ -12,10 +12,10 @@
       class="code__copy"
       [class.is-copied]="copied()"
       (click)="copy()"
-      [attr.aria-label]="copied() ? 'Código copiado' : 'Copiar código'"
+      [attr.aria-label]="copied() ? ui().copiedCode : ui().copyCode"
     >
       <app-icon [name]="copied() ? 'check' : 'copy'" />
-      <span>{{ copied() ? 'Copiado' : 'Copiar' }}</span>
+      <span>{{ copied() ? ui().copied : ui().copy }}</span>
     </button>
   </div>
   <div class="code__body">

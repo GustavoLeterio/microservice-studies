@@ -1,4 +1,6 @@
 import { ChangeDetectionStrategy, Component, computed, inject, input, signal } from '@angular/core';
+import { UI } from '../../../core/i18n/ui-text';
+import { LocaleService, watchLocale } from '../../../core/services/locale.service';
 import { CodeLanguage } from '../../models/doc.models';
 import { HighlightService } from '../../services/highlight.service';
 
@@ -10,6 +12,10 @@ import { HighlightService } from '../../services/highlight.service';
   styleUrl: './code-block.component.scss',
 })
 export class CodeBlockComponent {
+  private readonly locale = inject(LocaleService);
+  protected readonly ui = computed(() => UI[this.locale.lang()]);
+  private readonly localeWatch = watchLocale();
+
   readonly code = input.required<string>();
   readonly language = input<CodeLanguage>('text');
   readonly file = input<string>();

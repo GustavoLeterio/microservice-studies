@@ -1,38 +1,38 @@
 <app-doc-layout spyKey="endpoints-catalog">
   <app-page-header
-    heading="Catálogo de endpoints"
-    lead="Rotas REST de negócio (customer, product e cart). Cada item mostra o handler, o corpo, as respostas de sucesso e os erros que o código pode devolver. Não há cliente HTTP aqui — só a documentação do contrato."
+    [heading]="ui().catalogTitle"
+    [lead]="ui().catalogLead"
   />
 
-  <app-section sectionId="filtros" heading="Filtros">
+  <app-section sectionId="filtros" [heading]="ui().filters">
     <div class="filters">
       <label>
-        Método
+        {{ ui().method }}
         <select [value]="methodFilter()" (change)="methodFilter.set($any($event.target).value)">
-          <option value="ALL">Todos</option>
+          <option value="ALL">{{ ui().all }}</option>
           @for (method of methods; track method) {
             <option [value]="method">{{ method }}</option>
           }
         </select>
       </label>
       <label>
-        Serviço
+        {{ ui().service }}
         <select [value]="serviceFilter()" (change)="serviceFilter.set($any($event.target).value)">
-          <option value="ALL">Todos</option>
-          @for (name of services; track name) {
+          <option value="ALL">{{ ui().all }}</option>
+          @for (name of services(); track name) {
             <option [value]="name">{{ name }}</option>
           }
         </select>
       </label>
       <label class="filters__search">
-        Busca
-        <input type="search" placeholder="path, handler, resumo..." [value]="query()" (input)="query.set($any($event.target).value)" />
+        {{ ui().search }}
+        <input type="search" [placeholder]="ui().searchRoutes" [value]="query()" (input)="query.set($any($event.target).value)" />
       </label>
     </div>
-    <p class="count">{{ filtered().length }} rota(s)</p>
+    <p class="count">{{ filtered().length }} {{ ui().routesCount }}</p>
   </app-section>
 
-  <app-section sectionId="lista" heading="Rotas de negócio">
+  <app-section sectionId="lista" [heading]="ui().businessRoutes">
     <div class="list">
       @for (item of filtered(); track item.id) {
         <div class="item">
@@ -43,7 +43,7 @@
           <app-endpoint-panel [endpoint]="item" />
         </div>
       } @empty {
-        <p>Nenhuma rota com esses filtros.</p>
+        <p>{{ ui().noRoutes }}</p>
       }
     </div>
   </app-section>

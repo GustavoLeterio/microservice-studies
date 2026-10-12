@@ -1,52 +1,45 @@
 <article class="home">
   <header class="hero">
-    <p class="hero__eyebrow">Estudo de microserviços · Spring Cloud · Docker</p>
-    <h1>Documentação do e-commerce em microserviços</h1>
-    <p class="hero__lead">
-      Este site descreve o código deste repositório: três serviços de negócio (clientes, produtos e carrinho),
-      Config Server, Eureka, API Gateway, bancos, Prometheus e Grafana. Cada tópico explica o conceito e mostra
-      como ele foi aplicado, com trechos reais.
-    </p>
+    <p class="hero__eyebrow">{{ ui().eyebrow }}</p>
+    <h1>{{ ui().homeTitle }}</h1>
+    <p class="hero__lead">{{ ui().homeLead }}</p>
     <div class="hero__actions">
       <a class="btn btn--primary" routerLink="/explorador">
-        <app-icon name="compass" /> Explorar o sistema
+        <app-icon name="compass" /> {{ ui().explore }}
       </a>
       <a class="btn btn--ghost" routerLink="/visao-geral/o-sistema">
-        Começar pela visão geral
+        {{ ui().startOverview }}
       </a>
     </div>
   </header>
 
   <section class="panel">
-    <h2>Como navegar</h2>
-    <p class="panel__lead">
-      A sidebar tem dois modos de leitura. Use o Explorador para achar um serviço, um endpoint ou um erro.
-      Use os tópicos seguintes para entender a arquitetura e o código.
-    </p>
+    <h2>{{ ui().howToNavigate }}</h2>
+    <p class="panel__lead">{{ ui().howToNavigateLead }}</p>
     <div class="modes">
       <a class="mode" routerLink="/explorador">
         <app-icon name="compass" />
-        <strong>Explorador</strong>
-        <span>Catálogo de microserviços, tecnologias, dependências, endpoints, respostas e exceções.</span>
+        <strong>{{ ui().explorer }}</strong>
+        <span>{{ ui().explorerBlurb }}</span>
       </a>
       <a class="mode" routerLink="/microservicos/conceito">
         <app-icon name="book" />
-        <strong>Conceitos</strong>
-        <span>MVC, POM, Config Server, Eureka, Gateway, load balancer, Docker e observabilidade.</span>
+        <strong>{{ ui().concepts }}</strong>
+        <span>{{ ui().conceptsBlurb }}</span>
       </a>
     </div>
   </section>
 
   <section class="panel">
-    <h2>Tópicos</h2>
+    <h2>{{ ui().topics }}</h2>
     <div class="topics">
-      @for (topic of nav.topics; track topic.id) {
+      @for (topic of nav.topics(); track topic.id) {
         <a class="topic-card" [routerLink]="topic.pages[0].path">
           <span class="topic-card__icon"><app-icon [name]="topic.icon" /></span>
           <span class="topic-card__body">
             <strong>{{ topic.title }}</strong>
             <span>{{ topic.description }}</span>
-            <small>{{ topic.pages.length }} páginas</small>
+            <small>{{ topic.pages.length }} {{ ui().pages }}</small>
           </span>
         </a>
       }
@@ -54,9 +47,9 @@
   </section>
 
   <section class="panel">
-    <h2>Peças do sistema</h2>
+    <h2>{{ ui().systemPieces }}</h2>
     @for (kind of kinds; track kind) {
-      <h3>{{ kindLabel[kind] }}</h3>
+      <h3>{{ kindLabel()[kind] }}</h3>
       <ul class="chip-list">
         @for (service of servicesOf(kind); track service.id) {
           <li>

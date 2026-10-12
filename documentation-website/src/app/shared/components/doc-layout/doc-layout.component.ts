@@ -1,4 +1,6 @@
-import { ChangeDetectionStrategy, Component, input } from '@angular/core';
+import { ChangeDetectionStrategy, Component, computed, inject, input } from '@angular/core';
+import { UI } from '../../../core/i18n/ui-text';
+import { LocaleService, watchLocale } from '../../../core/services/locale.service';
 
 /** Estrutura comum das páginas: artigo central, sumário "Nesta página" à direita e navegação anterior/próximo. */
 @Component({
@@ -14,7 +16,7 @@ import { ChangeDetectionStrategy, Component, input } from '@angular/core';
         }
       </article>
       @if (showToc()) {
-        <aside class="layout__toc" aria-label="Nesta página">
+        <aside class="layout__toc" [attr.aria-label]="ui().onThisPage">
           <app-toc />
         </aside>
       }
@@ -23,6 +25,9 @@ import { ChangeDetectionStrategy, Component, input } from '@angular/core';
   styleUrl: './doc-layout.component.scss',
 })
 export class DocLayoutComponent {
+  private readonly locale = inject(LocaleService);
+  protected readonly ui = computed(() => UI[this.locale.lang()]);
+  private readonly localeWatch = watchLocale();
   readonly spyKey = input<unknown>();
   readonly showToc = input(true);
   readonly showPager = input(true);
