@@ -1,4 +1,64 @@
-# E-commerce Microservices
+# 🇮🇪 E-commerce Microservices
+
+A study of an e-commerce system split into microservices: customers, products, and cart, with centralized configuration, service discovery, an API Gateway, metrics, and dashboards.
+
+**Documentation:** [microservice-documentation.netlify.app](https://microservice-documentation.netlify.app)
+
+## Domain
+
+The system models a small store, with **one database per service** and a clear responsibility in each process. The client does not talk to the database or to a microservice directly: the edge is the gateway, and each service only knows its own model.
+
+- **customer-microservice** (port `8091`) persists customers in **MongoDB**, in the `customer_db` database
+- **product-microservice** (port `8092`) persists the catalog in **PostgreSQL** with **JPA/Hibernate**, in the `product_db` database
+- **cart-microservice** (port `8093`) persists the cart in **MongoDB**, in the `cart_db` database, and looks up the customer and the product before building the order
+
+The choice of two databases is intentional. Customers and carts are documents, with a flexible structure. Products are relational, with an entity, a Spring Data repository, and a schema managed by JPA. The cart does not copy those records: it stores references and fetches the rest at request time.
+
+That lookup leaves `cart-microservice` through **OpenFeign**. The Feign client uses the service's logical name, **Spring Cloud LoadBalancer** picks an instance, and **Eureka** reports who is up. There is no fixed URL between services. If more than one replica exists, client-side balancing spreads the calls.
+
+## Traffic and platform
+
+The path of an external request is short. The client calls the **API Gateway** on port `8222`. The gateway, built with Spring Cloud Gateway, applies predicates and filters and forwards with the `lb://` scheme to customer, product, or cart. That is **north-south** traffic. The gateway's **Swagger UI** merges the OpenAPI specification of all three, so the route documentation lives at a single address.
+
+The internal path is the opposite. When the cart needs a customer or a product, the call is **east-west**: service to service, by the registered name, without going through the gateway again.
+
+| Piece | Port | Role |
+|---|---|---|
+| **API Gateway** | `8222` | North-south entry and `lb://` routes |
+| **Config Server** | `8888` | One YAML per application, `native` profile |
+| **Eureka** | `8761` | Registration, heartbeat, and discovery |
+| **OpenFeign** | — | East-west calls starting from the cart |
+
+Config Server and Eureka stay outside the business flow. The Config Server keeps configuration in a local file, and each application imports it with `spring.config.import`. The discovery server receives the registration at startup and the heartbeat while the process is alive. Port, database name, user, and password are not hardcoded in YAML: they enter as placeholders and are filled by the Compose `.env`.
+
+## Code
+
+The repository is a **multi-module** Maven build on **Java 25**, **Spring Boot 4.1**, and **Spring Cloud 2025.1**. The parent POM, `ecommerce`, aggregates `config-server`, `discovery-server`, `api-gateway`, and `microservices`. It imports the Spring Cloud BOM in `dependencyManagement` and shares **Actuator**, **Micrometer** (Prometheus registry), and **Lombok**. Each child module points at that parent and declares only what is specific to it.
+
+Inside `microservices` there are four modules. The three business services follow the same layers: **controller**, **service**, **repository**, **mapper**, and **DTO**. The fourth, `common-exceptions`, is an internal library. It does not run as a process. The services consume it as a JAR and inherit the error handling: `@RestControllerAdvice`, handlers, and **ProblemDetail**, so that 404, validation, and unexpected failures share the same format.
+
+HTTP contracts use Java **records**. Request and response are immutable and stay separate from the persistence entity. The mapper translates one into the other. That way the Mongo document or the JPA entity does not leak to the API client.
+
+## Runtime
+
+**Docker Compose** brings up the `microservices` network and ties startup order to healthchecks.
+
+- **MongoDB** (`27017`) and **PostgreSQL** (`5432`) use a named volume; data survives `docker compose down` without `-v`
+- **Config Server** and **Eureka** expose `/actuator/health`; the gateway waits until both are healthy
+- Customer waits for Mongo, config, and discovery; product waits for Postgres, config, and discovery; cart waits for Mongo, config, and discovery
+- Java images are **multi-stage**: the first stage compiles with the JDK, the second runs with the Alpine JRE
+- Application logs go to a bind mount, under `logs/` inside each microservice
+- **Prometheus** (`9090`) scrapes Micrometer metrics; **Grafana** (`3000`) uses that datasource in the dashboards
+
+`.env` stays out of Git. The repository publishes `.env.example`, with the same keys and study values, so anyone cloning the project knows which variables Compose expects.
+
+## Documentation
+
+The site in `documentation-website` is an **Angular 22** SPA with NgModules and Sass. The sidebar follows a reading path: overview, service and endpoint explorer, microservices, Java code structure, Spring Cloud architecture, Docker, observability, and guides. The code excerpts come from the repository's real files. The published version is at [microservice-documentation.netlify.app](https://microservice-documentation.netlify.app).
+
+---
+
+# 🇧🇷 E-commerce Microservices
 
 Estudo de um e-commerce dividido em microserviços: clientes, produtos e carrinho, com configuração centralizada, descoberta de serviços, API Gateway, métricas e dashboards.
 
