@@ -1,0 +1,128 @@
+@for (block of blocks(); track $index) {
+  @switch (block.type) {
+    @case ('text') {
+      <div class="block prose" [innerHTML]="block.html"></div>
+    }
+    @case ('subheading') {
+      <h3 class="block subheading">{{ block.text }}</h3>
+    }
+    @case ('list') {
+      @if (block.ordered) {
+        <ol class="block prose list">
+          @for (item of block.items; track $index) {
+            <li [innerHTML]="item"></li>
+          }
+        </ol>
+      } @else {
+        <ul class="block prose list">
+          @for (item of block.items; track $index) {
+            <li [innerHTML]="item"></li>
+          }
+        </ul>
+      }
+    }
+    @case ('code') {
+      <app-code-block class="block" [code]="block.code" [language]="block.language" [file]="block.file"
+        [caption]="block.caption" />
+    }
+    @case ('callout') {
+      <app-callout class="block" [variant]="block.variant" [title]="block.title">
+        <div class="prose" [innerHTML]="block.html"></div>
+      </app-callout>
+    }
+    @case ('table') {
+      <div class="block">
+        <div class="table-wrap">
+          <table class="doc-table prose">
+            <thead>
+              <tr>
+                @for (header of block.headers; track $index) {
+                  <th scope="col">{{ header }}</th>
+                }
+              </tr>
+            </thead>
+            <tbody>
+              @for (row of block.rows; track $index) {
+                <tr>
+                  @for (cell of row; track $index) {
+                    <td [innerHTML]="cell"></td>
+                  }
+                </tr>
+              }
+            </tbody>
+          </table>
+        </div>
+        @if (block.caption) {
+          <p class="table-caption prose" [innerHTML]="block.caption"></p>
+        }
+      </div>
+    }
+    @case ('flow') {
+      <app-flow class="block" [nodes]="block.nodes" [caption]="block.caption" />
+    }
+    @case ('tree') {
+      <app-tree class="block" [nodes]="block.nodes" [caption]="block.caption" />
+    }
+    @case ('cards') {
+      <div class="block cards">
+        @for (card of block.items; track card.title) {
+          @if (card.link) {
+            <a class="card card--link" [routerLink]="card.link">
+              <span class="card__head">
+                <span class="card__title">{{ card.title }}</span>
+                @if (card.tag) {
+                  <span class="card__tag">{{ card.tag }}</span>
+                }
+              </span>
+              <span class="card__text prose" [innerHTML]="card.html"></span>
+              <span class="card__more">Abrir <app-icon name="arrow-right" /></span>
+            </a>
+          } @else {
+            <div class="card">
+              <span class="card__head">
+                <span class="card__title">{{ card.title }}</span>
+                @if (card.tag) {
+                  <span class="card__tag">{{ card.tag }}</span>
+                }
+              </span>
+              <span class="card__text prose" [innerHTML]="card.html"></span>
+            </div>
+          }
+        }
+      </div>
+    }
+    @case ('steps') {
+      <ol class="block steps">
+        @for (step of block.items; track $index) {
+          <li class="step">
+            <span class="step__number" aria-hidden="true">{{ $index + 1 }}</span>
+            <div class="step__content">
+              <h4 class="step__title">{{ step.title }}</h4>
+              <div class="prose" [innerHTML]="step.html"></div>
+              @if (step.code) {
+                <app-code-block class="step__code" [code]="step.code.code" [language]="step.code.language"
+                  [file]="step.code.file" [caption]="step.code.caption" />
+              }
+            </div>
+          </li>
+        }
+      </ol>
+    }
+    @case ('columns') {
+      <div class="block columns">
+        @for (column of block.columns; track $index) {
+          <div class="column">
+            <h4 class="column__title">{{ column.title }}</h4>
+            <app-doc-blocks [blocks]="column.blocks" />
+          </div>
+        }
+      </div>
+    }
+    @case ('tabs') {
+      <app-tabs class="block" [tabs]="block.tabs" />
+    }
+    @case ('diagram') {
+      <app-architecture-diagram class="block" />
+    }
+  }
+}

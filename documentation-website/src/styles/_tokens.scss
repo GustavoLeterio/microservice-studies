@@ -1,0 +1,120 @@
+// Tokens de design expostos como CSS custom properties.
+// O tema é trocado em runtime pelo atributo data-theme no <html> (ver ThemeService).
+
+$light: (
+  bg: #ffffff,
+  bg-soft: #f7f9fb,
+  bg-muted: #eef2f6,
+  surface: #ffffff,
+  border: #e2e8f0,
+  border-strong: #cbd5e1,
+  text: #1e293b,
+  text-soft: #475569,
+  text-muted: #64748b,
+  heading: #0f172a,
+  accent: #15803d,
+  accent-strong: #166534,
+  accent-soft: #e8f7ee,
+  accent-contrast: #ffffff,
+  inline-code-bg: #f1f5f9,
+  inline-code-text: #0f172a,
+  header-bg: rgba(255, 255, 255, 0.86),
+  overlay: rgba(15, 23, 42, 0.45),
+  shadow: (0 1px 2px rgba(15, 23, 42, 0.06), 0 8px 24px rgba(15, 23, 42, 0.07)),
+  info: #2563eb,
+  info-soft: #eff6ff,
+  tip: #15803d,
+  tip-soft: #f0fdf4,
+  warning: #b45309,
+  warning-soft: #fffbeb,
+  danger: #dc2626,
+  danger-soft: #fef2f2,
+  method-get: #2563eb,
+  method-post: #15803d,
+  method-put: #c2410c,
+  method-patch: #7c3aed,
+  method-delete: #dc2626,
+  method-any: #475569,
+  tone-platform: #7c3aed,
+  tone-data: #0e7490,
+  tone-observability: #c2410c,
+  tone-external: #475569,
+);
+
+$dark: (
+  bg: #0b1020,
+  bg-soft: #0e1528,
+  bg-muted: #141d35,
+  surface: #111a30,
+  border: #1e2a46,
+  border-strong: #2c3b5e,
+  text: #d5ddea,
+  text-soft: #a8b3c7,
+  text-muted: #7d89a1,
+  heading: #f1f5f9,
+  accent: #4ade80,
+  accent-strong: #86efac,
+  accent-soft: rgba(74, 222, 128, 0.12),
+  accent-contrast: #052e16,
+  inline-code-bg: #182240,
+  inline-code-text: #e2e8f0,
+  header-bg: rgba(11, 16, 32, 0.82),
+  overlay: rgba(2, 6, 23, 0.6),
+  shadow: (0 1px 2px rgba(0, 0, 0, 0.3), 0 8px 24px rgba(0, 0, 0, 0.35)),
+  info: #60a5fa,
+  info-soft: rgba(96, 165, 250, 0.1),
+  tip: #4ade80,
+  tip-soft: rgba(74, 222, 128, 0.08),
+  warning: #fbbf24,
+  warning-soft: rgba(251, 191, 36, 0.08),
+  danger: #f87171,
+  danger-soft: rgba(248, 113, 113, 0.09),
+  method-get: #60a5fa,
+  method-post: #4ade80,
+  method-put: #fb923c,
+  method-patch: #a78bfa,
+  method-delete: #f87171,
+  method-any: #94a3b8,
+  tone-platform: #a78bfa,
+  tone-data: #22d3ee,
+  tone-observability: #fb923c,
+  tone-external: #94a3b8,
+);
+
+@mixin emit($tokens) {
+  @each $name, $value in $tokens {
+    --#{$name}: #{$value};
+  }
+}
+
+:root {
+  @include emit($light);
+  color-scheme: light;
+
+  --font-sans: 'Inter', 'Segoe UI', system-ui, -apple-system, Roboto, 'Helvetica Neue', Arial, sans-serif;
+  --font-mono: 'JetBrains Mono', 'Cascadia Code', 'Fira Code', Consolas, 'Liberation Mono', monospace;
+
+  --radius-sm: 6px;
+  --radius: 10px;
+  --radius-lg: 16px;
+
+  --header-h: 64px;
+  --sidebar-w: 296px;
+  --toc-w: 220px;
+  --content-max: 860px;
+
+  --code-bg: #0d1117;
+  --code-header-bg: #161b22;
+  --code-border: #262c36;
+  --code-text: #e6edf3;
+  --code-muted: #7d8590;
+}
+
+:root[data-theme='dark'] {
+  @include emit($dark);
+  color-scheme: dark;
+
+  --code-bg: #0a0f1c;
+  --code-header-bg: #10172a;
+  --code-border: #1e2a46;
+}

@@ -1,0 +1,32 @@
+<figure class="code">
+  <div class="code__header">
+    <span class="code__file">
+      <app-icon [name]="file() ? 'file' : 'code'" />
+      <span>{{ file() ?? languageLabel() }}</span>
+    </span>
+    @if (file()) {
+      <span class="code__lang">{{ languageLabel() }}</span>
+    }
+    <button
+      type="button"
+      class="code__copy"
+      [class.is-copied]="copied()"
+      (click)="copy()"
+      [attr.aria-label]="copied() ? 'Código copiado' : 'Copiar código'"
+    >
+      <app-icon [name]="copied() ? 'check' : 'copy'" />
+      <span>{{ copied() ? 'Copiado' : 'Copiar' }}</span>
+    </button>
+  </div>
+  <div class="code__body">
+    <div class="code__gutter" aria-hidden="true">
+      @for (line of lineNumbers(); track line) {
+        <span>{{ line }}</span>
+      }
+    </div>
+    <pre class="code__pre"><code class="hljs" [innerHTML]="html()"></code></pre>
+  </div>
+  @if (caption()) {
+    <figcaption class="code__caption prose" [innerHTML]="caption()"></figcaption>
+  }
+</figure>

@@ -1,0 +1,21 @@
+server:
+  port: 8761
+
+eureka:
+  instance:
+    hostname: localhost
+  client:
+    registerWithEureka: false
+    fetchRegistry: false
+    serviceUrl:
+      defaultZone: ${EUREKA_CLIENT_SERVICERUL_DEFAULTZONE:http://localhost:8761/eureka/}
+
+
+management:
+    endpoints:
+        web:
+            exposure:
+                include: health, info, prometheus
+    endpoint:
+        health:
+            show-details: always

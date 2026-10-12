@@ -1,0 +1,57 @@
+@use 'mixins' as *;
+
+:host {
+  display: block;
+}
+
+.tabs {
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  background: var(--surface);
+  overflow: hidden;
+}
+
+.tabs__list {
+  display: flex;
+  gap: 0.25rem;
+  padding: 0.4rem 0.4rem 0;
+  border-bottom: 1px solid var(--border);
+  background: var(--bg-soft);
+  overflow-x: auto;
+  @include scrollbar-thin;
+}
+
+.tabs__tab {
+  @include reset-button;
+  position: relative;
+  padding: 0.55rem 0.9rem 0.65rem;
+  border-radius: var(--radius-sm) var(--radius-sm) 0 0;
+  font-size: 0.86rem;
+  font-weight: 600;
+  color: var(--text-muted);
+  white-space: nowrap;
+
+  &:hover {
+    color: var(--heading);
+  }
+
+  &.is-active {
+    color: var(--accent);
+    background: var(--surface);
+
+    &::after {
+      content: '';
+      position: absolute;
+      left: 0.6rem;
+      right: 0.6rem;
+      bottom: -1px;
+      height: 2px;
+      border-radius: 2px;
+      background: var(--accent);
+    }
+  }
+}
+
+.tabs__panel {
+  padding: 1rem;
+}

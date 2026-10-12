@@ -1,0 +1,451 @@
+// Trechos reais dos pom.xml do projeto (cabeçalho XML e namespaces omitidos).
+
+export const ROOT_POM = `
+<project>
+  <modelVersion>4.0.0</modelVersion>
+  <parent>
+    <groupId>org.springframework.boot</groupId>
+    <artifactId>spring-boot-starter-parent</artifactId>
+    <version>4.1.1</version>
+  </parent>
+  <groupId>com.gustavoleterio</groupId>
+  <artifactId>ecommerce</artifactId>
+  <version>0.0.1-SNAPSHOT</version>
+  <name>ecommerce</name>
+  <packaging>pom</packaging>
+  <modules>
+    <module>config-server</module>
+    <module>discovery-server</module>
+    <module>api-gateway</module>
+    <module>microservices</module>
+  </modules>
+  <properties>
+    <java.version>25</java.version>
+    <spring-cloud.version>2025.1.3</spring-cloud.version>
+  </properties>
+  <dependencies>
+    <dependency>
+      <groupId>org.projectlombok</groupId>
+      <artifactId>lombok</artifactId>
+      <optional>true</optional>
+    </dependency>
+    <dependency>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-starter-test</artifactId>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-starter-actuator</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>io.micrometer</groupId>
+      <artifactId>micrometer-registry-prometheus</artifactId>
+    </dependency>
+  </dependencies>
+  <dependencyManagement>
+    <dependencies>
+      <dependency>
+        <groupId>org.springframework.cloud</groupId>
+        <artifactId>spring-cloud-dependencies</artifactId>
+        <version>\${spring-cloud.version}</version>
+        <type>pom</type>
+        <scope>import</scope>
+      </dependency>
+    </dependencies>
+  </dependencyManagement>
+  <build>
+    <plugins>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-compiler-plugin</artifactId>
+        <configuration>
+          <annotationProcessorPaths>
+            <path>
+              <groupId>org.projectlombok</groupId>
+              <artifactId>lombok</artifactId>
+              <version>\${lombok.version}</version>
+            </path>
+          </annotationProcessorPaths>
+        </configuration>
+      </plugin>
+      <plugin>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-maven-plugin</artifactId>
+      </plugin>
+    </plugins>
+  </build>
+</project>
+`;
+
+export const ROOT_POM_MODULES = `
+<groupId>com.gustavoleterio</groupId>
+<artifactId>ecommerce</artifactId>
+<version>0.0.1-SNAPSHOT</version>
+<packaging>pom</packaging>
+<modules>
+  <module>config-server</module>
+  <module>discovery-server</module>
+  <module>api-gateway</module>
+  <module>microservices</module>
+</modules>
+`;
+
+export const MICROSERVICES_POM = `
+<project>
+  <modelVersion>4.0.0</modelVersion>
+  <parent>
+    <groupId>com.gustavoleterio</groupId>
+    <artifactId>ecommerce</artifactId>
+    <version>0.0.1-SNAPSHOT</version>
+    <relativePath>../pom.xml</relativePath>
+  </parent>
+  <groupId>com.gustavoleterio.microservices</groupId>
+  <artifactId>microservices</artifactId>
+  <version>0.0.1-SNAPSHOT</version>
+  <packaging>pom</packaging>
+  <modules>
+    <module>customer-microservice</module>
+    <module>common-exceptions</module>
+    <module>product-microservice</module>
+    <module>cart-microservice</module>
+  </modules>
+  <properties>
+    <springdoc.version>3.1.1</springdoc.version>
+  </properties>
+  <dependencyManagement>
+    <dependencies>
+      <dependency>
+        <groupId>com.gustavoleterio.microservices</groupId>
+        <artifactId>common-exceptions</artifactId>
+        <version>\${project.version}</version>
+      </dependency>
+    </dependencies>
+  </dependencyManagement>
+  <dependencies>
+    <dependency>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-starter-validation</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-starter-webmvc</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.springframework.cloud</groupId>
+      <artifactId>spring-cloud-starter-config</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.springframework.cloud</groupId>
+      <artifactId>spring-cloud-starter-netflix-eureka-client</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.springdoc</groupId>
+      <artifactId>springdoc-openapi-starter-webmvc-ui</artifactId>
+      <version>\${springdoc.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-starter-validation-test</artifactId>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-starter-webmvc-test</artifactId>
+      <scope>test</scope>
+    </dependency>
+  </dependencies>
+  <build>
+    <plugins>
+      <plugin>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-maven-plugin</artifactId>
+      </plugin>
+    </plugins>
+  </build>
+</project>
+`;
+
+export const CUSTOMER_POM = `
+<project>
+  <modelVersion>4.0.0</modelVersion>
+  <parent>
+    <groupId>com.gustavoleterio.microservices</groupId>
+    <artifactId>microservices</artifactId>
+    <version>0.0.1-SNAPSHOT</version>
+    <relativePath>../pom.xml</relativePath>
+  </parent>
+  <artifactId>customer-microservice</artifactId>
+  <name>customer-microservice</name>
+  <dependencies>
+    <dependency>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-starter-data-mongodb</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-starter-data-mongodb-test</artifactId>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>com.gustavoleterio.microservices</groupId>
+      <artifactId>common-exceptions</artifactId>
+    </dependency>
+  </dependencies>
+</project>
+`;
+
+export const PRODUCT_POM = `
+<project>
+  <modelVersion>4.0.0</modelVersion>
+  <parent>
+    <groupId>com.gustavoleterio.microservices</groupId>
+    <artifactId>microservices</artifactId>
+    <version>0.0.1-SNAPSHOT</version>
+    <relativePath>../pom.xml</relativePath>
+  </parent>
+  <groupId>com.gustavoleterio.microservices</groupId>
+  <artifactId>product-microservice</artifactId>
+  <name>product-microservice</name>
+  <dependencies>
+    <dependency>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-starter-data-jpa</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.postgresql</groupId>
+      <artifactId>postgresql</artifactId>
+      <scope>runtime</scope>
+    </dependency>
+    <dependency>
+      <groupId>com.gustavoleterio.microservices</groupId>
+      <artifactId>common-exceptions</artifactId>
+    </dependency>
+  </dependencies>
+  <build>
+    <plugins>
+      <plugin>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-maven-plugin</artifactId>
+      </plugin>
+    </plugins>
+  </build>
+</project>
+`;
+
+export const CART_POM = `
+<project>
+  <modelVersion>4.0.0</modelVersion>
+  <parent>
+    <groupId>com.gustavoleterio.microservices</groupId>
+    <artifactId>microservices</artifactId>
+    <version>0.0.1-SNAPSHOT</version>
+    <relativePath>../pom.xml</relativePath>
+  </parent>
+  <groupId>com.gustavoleterio.microservices</groupId>
+  <artifactId>cart-microservice</artifactId>
+  <version>0.0.1-SNAPSHOT</version>
+  <name>cart-microservice</name>
+  <dependencies>
+    <dependency>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-starter-data-mongodb</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.springframework.cloud</groupId>
+      <artifactId>spring-cloud-starter-openfeign</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.springframework.cloud</groupId>
+      <artifactId>spring-cloud-starter-loadbalancer</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-starter-data-mongodb-test</artifactId>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>com.gustavoleterio.microservices</groupId>
+      <artifactId>common-exceptions</artifactId>
+    </dependency>
+  </dependencies>
+  <dependencyManagement>
+    <dependencies>
+      <dependency>
+        <groupId>org.springframework.cloud</groupId>
+        <artifactId>spring-cloud-dependencies</artifactId>
+        <version>\${spring-cloud.version}</version>
+        <type>pom</type>
+        <scope>import</scope>
+      </dependency>
+    </dependencies>
+  </dependencyManagement>
+  <build>
+    <plugins>
+      <plugin>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-maven-plugin</artifactId>
+      </plugin>
+    </plugins>
+  </build>
+</project>
+`;
+
+export const COMMON_EXCEPTIONS_POM = `
+<project>
+  <modelVersion>4.0.0</modelVersion>
+  <parent>
+    <groupId>com.gustavoleterio.microservices</groupId>
+    <artifactId>microservices</artifactId>
+    <version>0.0.1-SNAPSHOT</version>
+    <relativePath>../pom.xml</relativePath>
+  </parent>
+  <groupId>com.gustavoleterio.microservices</groupId>
+  <artifactId>common-exceptions</artifactId>
+  <name>common-exceptions</name>
+  <build>
+    <plugins>
+      <plugin>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-maven-plugin</artifactId>
+        <configuration>
+          <skip>true</skip>
+        </configuration>
+      </plugin>
+    </plugins>
+  </build>
+</project>
+`;
+
+export const API_GATEWAY_POM = `
+<project>
+  <modelVersion>4.0.0</modelVersion>
+  <parent>
+    <groupId>com.gustavoleterio</groupId>
+    <artifactId>ecommerce</artifactId>
+    <version>0.0.1-SNAPSHOT</version>
+    <relativePath>../pom.xml</relativePath>
+  </parent>
+  <groupId>com.gustavoleterio</groupId>
+  <artifactId>api-gateway</artifactId>
+  <version>0.0.1-SNAPSHOT</version>
+  <name>api-gateway</name>
+  <dependencies>
+    <dependency>
+      <groupId>org.springframework.cloud</groupId>
+      <artifactId>spring-cloud-starter-config</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.springframework.cloud</groupId>
+      <artifactId>spring-cloud-starter-gateway-server-webflux</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.springframework.cloud</groupId>
+      <artifactId>spring-cloud-starter-loadbalancer</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.springframework.cloud</groupId>
+      <artifactId>spring-cloud-starter-netflix-eureka-client</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.springdoc</groupId>
+      <artifactId>springdoc-openapi-starter-webflux-ui</artifactId>
+      <version>3.1.1</version>
+    </dependency>
+    <dependency>
+      <groupId>org.springframework.cloud</groupId>
+      <artifactId>spring-cloud-starter-loadbalancer</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-starter-test</artifactId>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>io.projectreactor</groupId>
+      <artifactId>reactor-test</artifactId>
+      <scope>test</scope>
+    </dependency>
+  </dependencies>
+  <dependencyManagement>
+    <dependencies>
+      <dependency>
+        <groupId>org.springframework.cloud</groupId>
+        <artifactId>spring-cloud-dependencies</artifactId>
+        <version>\${spring-cloud.version}</version>
+        <type>pom</type>
+        <scope>import</scope>
+      </dependency>
+    </dependencies>
+  </dependencyManagement>
+  <build>
+    <plugins>
+      <plugin>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-maven-plugin</artifactId>
+      </plugin>
+    </plugins>
+  </build>
+</project>
+`;
+
+export const CONFIG_SERVER_POM = `
+<project>
+  <modelVersion>4.0.0</modelVersion>
+  <parent>
+    <groupId>com.gustavoleterio</groupId>
+    <artifactId>ecommerce</artifactId>
+    <version>0.0.1-SNAPSHOT</version>
+    <relativePath>../pom.xml</relativePath>
+  </parent>
+  <groupId>com.gustavoleterio</groupId>
+  <artifactId>config-server</artifactId>
+  <name>config-server</name>
+  <dependencies>
+    <dependency>
+      <groupId>org.springframework.cloud</groupId>
+      <artifactId>spring-cloud-config-server</artifactId>
+    </dependency>
+  </dependencies>
+  <build>
+    <plugins>
+      <plugin>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-maven-plugin</artifactId>
+      </plugin>
+    </plugins>
+  </build>
+</project>
+`;
+
+export const DISCOVERY_SERVER_POM = `
+<project>
+  <modelVersion>4.0.0</modelVersion>
+  <parent>
+    <groupId>com.gustavoleterio</groupId>
+    <artifactId>ecommerce</artifactId>
+    <version>0.0.1-SNAPSHOT</version>
+    <relativePath>../pom.xml</relativePath>
+  </parent>
+  <artifactId>discovery-server</artifactId>
+  <name>discovery-server</name>
+  <dependencies>
+    <dependency>
+      <groupId>org.springframework.cloud</groupId>
+      <artifactId>spring-cloud-starter-config</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.springframework.cloud</groupId>
+      <artifactId>spring-cloud-starter-netflix-eureka-server</artifactId>
+    </dependency>
+  </dependencies>
+  <build>
+    <plugins>
+      <plugin>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-maven-plugin</artifactId>
+      </plugin>
+    </plugins>
+  </build>
+</project>
+`;

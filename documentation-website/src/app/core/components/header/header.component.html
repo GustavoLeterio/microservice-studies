@@ -1,0 +1,38 @@
+<header class="header">
+  <button
+    type="button"
+    class="icon-button header__menu"
+    aria-controls="sidebar"
+    [attr.aria-expanded]="nav.sidebarOpen()"
+    [attr.aria-label]="nav.sidebarOpen() ? 'Fechar menu' : 'Abrir menu'"
+    (click)="nav.toggleSidebar()"
+  >
+    <app-icon [name]="nav.sidebarOpen() ? 'close' : 'menu'" />
+  </button>
+
+  <a class="brand" routerLink="/" aria-label="Página inicial da documentação">
+    <span class="brand__logo"><app-icon name="box" /></span>
+    <span class="brand__text">
+      <strong>E-commerce Microservices</strong>
+      <small>Documentação técnica</small>
+    </span>
+  </a>
+
+  <app-search-box class="header__search" />
+
+  <div class="header__actions">
+    <a class="header__explore" routerLink="/explorador" [class.is-active]="nav.activeTopic()?.id === 'explorador'">
+      <app-icon name="compass" />
+      <span>Explorar sistema</span>
+    </a>
+    <button
+      type="button"
+      class="icon-button"
+      [attr.aria-label]="theme.theme() === 'dark' ? 'Usar tema claro' : 'Usar tema escuro'"
+      [attr.title]="theme.theme() === 'dark' ? 'Tema claro' : 'Tema escuro'"
+      (click)="theme.toggle()"
+    >
+      <app-icon [name]="theme.theme() === 'dark' ? 'sun' : 'moon'" />
+    </button>
+  </div>
+</header>

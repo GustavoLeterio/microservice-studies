@@ -1,0 +1,99 @@
+<article class="endpoint" [id]="endpoint().id">
+  <header class="endpoint__head">
+    <app-method-badge [method]="endpoint().method" />
+    <code class="endpoint__path">{{ endpoint().path }}</code>
+  </header>
+  <p class="endpoint__summary">{{ endpoint().summary }}</p>
+  @if (endpoint().description) {
+    <p class="endpoint__desc">{{ endpoint().description }}</p>
+  }
+  <p class="endpoint__handler"><span>Handler</span> {{ endpoint().handler }}</p>
+
+  @if (endpoint().params?.length) {
+    <h4>Parâmetros</h4>
+    <div class="table-wrap">
+      <table class="doc-table">
+        <thead>
+          <tr>
+            <th>Nome</th>
+            <th>Em</th>
+            <th>Tipo</th>
+            <th>Descrição</th>
+          </tr>
+        </thead>
+        <tbody>
+          @for (param of endpoint().params; track param.name) {
+            <tr>
+              <td><code>{{ param.name }}</code></td>
+              <td>{{ param.in }}</td>
+              <td><code>{{ param.type }}</code></td>
+              <td>{{ param.description }}</td>
+            </tr>
+          }
+        </tbody>
+      </table>
+    </div>
+  }
+
+  @if (endpoint().body; as body) {
+    <h4>Corpo · {{ body.type }}</h4>
+    <div class="table-wrap">
+      <table class="doc-table">
+        <thead>
+          <tr>
+            <th>Campo</th>
+            <th>Tipo</th>
+            <th>Obrigatório</th>
+            <th>Regras</th>
+          </tr>
+        </thead>
+        <tbody>
+          @for (field of body.fields; track field.name) {
+            <tr>
+              <td><code>{{ field.name }}</code></td>
+              <td><code>{{ field.type }}</code></td>
+              <td>{{ field.required ? 'sim' : 'não' }}</td>
+              <td>{{ field.rules || '—' }}</td>
+            </tr>
+          }
+        </tbody>
+      </table>
+    </div>
+    <app-code-block [code]="body.example" language="json" caption="Exemplo de request body" />
+  }
+
+  <h4>Respostas de sucesso</h4>
+  @for (response of endpoint().responses; track response.status) {
+    <div class="result">
+      <p class="result__meta">
+        <span class="status status--ok">{{ response.status }}</span>
+        {{ response.description }}
+        @if (response.contentType) {
+          <code>{{ response.contentType }}</code>
+        }
+      </p>
+      @if (response.example) {
+        <app-code-block [code]="response.example" language="json" />
+      }
+    </div>
+  }
+
+  <h4>Erros possíveis</h4>
+  @if (!endpoint().errors.length) {
+    <p class="muted">Nenhum erro de domínio documentado nesta rota (falhas de infraestrutura ainda podem ocorrer).</p>
+  }
+  @for (error of endpoint().errors; track error.status + error.cause) {
+    <div class="result">
+      <p class="result__meta">
+        <span class="status" [class.status--warn]="error.status >= 400 && error.status < 500" [class.status--err]="error.status >= 500">
+          {{ error.status }}
+        </span>
+        {{ error.cause }}
+      </p>
+      <p class="muted">Fonte: {{ error.source }}</p>
+      @if (error.example) {
+        <app-code-block [code]="error.example" language="json" />
+      }
+    </div>
+  }
+</article>

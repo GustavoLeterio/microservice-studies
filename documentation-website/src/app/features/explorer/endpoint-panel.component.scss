@@ -1,0 +1,85 @@
+@use 'mixins' as *;
+
+:host {
+  display: block;
+}
+
+.endpoint {
+  @include card;
+  display: flex;
+  flex-direction: column;
+  gap: 0.7rem;
+  padding: 1.1rem 1.15rem 1.2rem;
+}
+
+.endpoint__head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.65rem;
+}
+
+.endpoint__path {
+  font-size: 0.92rem;
+  color: var(--heading);
+  overflow-wrap: anywhere;
+}
+
+.endpoint__summary {
+  font-weight: 650;
+  color: var(--heading);
+}
+
+.endpoint__desc,
+.muted {
+  color: var(--text-soft);
+  font-size: 0.92rem;
+}
+
+.endpoint__handler {
+  font-size: 0.84rem;
+  color: var(--text-muted);
+
+  span {
+    font-weight: 700;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    margin-right: 0.4rem;
+  }
+}
+
+h4 {
+  margin-top: 0.5rem;
+  font-size: 0.92rem;
+}
+
+.result {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+
+.result__meta {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.92rem;
+}
+
+.status {
+  @include pill(var(--method-any));
+  font-family: var(--font-mono);
+
+  &--ok {
+    @include pill(var(--method-post));
+  }
+
+  &--warn {
+    @include pill(var(--warning));
+  }
+
+  &--err {
+    @include pill(var(--danger));
+  }
+}

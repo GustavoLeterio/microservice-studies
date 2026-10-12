@@ -1,0 +1,242 @@
+@use 'mixins' as *;
+
+:host {
+  display: block;
+}
+
+.arch {
+  margin: 0;
+  padding: 1.2rem;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  background:
+    radial-gradient(circle at 1px 1px, color-mix(in srgb, var(--border-strong) 55%, transparent) 1px, transparent 0) 0 0 / 18px 18px,
+    var(--bg-soft);
+}
+
+.arch__grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 240px;
+  gap: 1.2rem;
+
+  @include down(lg) {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+.arch__main {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+}
+
+.lane {
+  display: grid;
+  gap: 0.6rem;
+
+  &--services,
+  &--data {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+
+    @include down(sm) {
+      grid-template-columns: minmax(0, 1fr);
+    }
+  }
+
+  &--data {
+    margin-top: 0.6rem;
+  }
+}
+
+.lane--client {
+  padding: 0.7rem 0.9rem;
+  border: 1px dashed var(--border-strong);
+  border-radius: var(--radius);
+  background: var(--surface);
+}
+
+.lane__label {
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+}
+
+.lane__clients {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+}
+
+.client {
+  @include pill(var(--tone-external));
+}
+
+.connector {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  height: 2.6rem;
+
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    bottom: 6px;
+    left: 50%;
+    border-left: 2px solid var(--border-strong);
+  }
+
+  &::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: calc(50% - 5px);
+    border: 6px solid transparent;
+    border-top-color: var(--border-strong);
+    border-bottom: 0;
+    width: 0;
+    height: 0;
+  }
+
+  span {
+    position: relative;
+    align-self: center;
+    padding: 0.1rem 0.55rem;
+    border-radius: 999px;
+    font-size: 0.72rem;
+    @include mono;
+    color: var(--text-soft);
+    background: var(--bg-soft);
+    border: 1px solid var(--border);
+  }
+}
+
+.node {
+  --tone: var(--accent);
+
+  display: flex;
+  flex-direction: column;
+  gap: 0.15rem;
+  padding: 0.65rem 0.8rem;
+  border: 1px solid color-mix(in srgb, var(--tone) 35%, var(--border));
+  border-left: 4px solid var(--tone);
+  border-radius: var(--radius);
+  background: var(--surface);
+  color: var(--text);
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+
+  &:hover {
+    text-decoration: none;
+    transform: translateY(-2px);
+    box-shadow: var(--shadow);
+  }
+
+  &--gateway {
+    --tone: var(--accent);
+    background: color-mix(in srgb, var(--accent) 7%, var(--surface));
+  }
+
+  &--platform {
+    --tone: var(--tone-platform);
+  }
+
+  &--data {
+    --tone: var(--tone-data);
+  }
+
+  &--observability {
+    --tone: var(--tone-observability);
+  }
+
+  &--library {
+    --tone: var(--text-muted);
+  }
+}
+
+.node__kind {
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--tone);
+}
+
+.node__name {
+  font-weight: 650;
+  font-size: 0.9rem;
+  color: var(--heading);
+  @include mono;
+  overflow-wrap: anywhere;
+
+  small {
+    font-weight: 500;
+    color: var(--text-muted);
+  }
+}
+
+.node__detail {
+  font-size: 0.78rem;
+  color: var(--text-muted);
+}
+
+.eastwest {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.5rem;
+  margin-top: 0.6rem;
+  padding: 0.5rem 0.75rem;
+  border: 1px dashed color-mix(in srgb, var(--tone-platform) 45%, var(--border));
+  border-radius: var(--radius);
+  font-size: 0.8rem;
+  color: var(--text-soft);
+  background: color-mix(in srgb, var(--tone-platform) 5%, var(--surface));
+}
+
+.eastwest__badge {
+  @include pill(var(--tone-platform));
+}
+
+.arch__side {
+  display: flex;
+  flex-direction: column;
+  gap: 0.8rem;
+
+  @include down(lg) {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  }
+}
+
+.panel {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  padding: 0.8rem;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  background: var(--surface);
+}
+
+.panel__title {
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+}
+
+.panel__note {
+  font-size: 0.76rem;
+  line-height: 1.45;
+  color: var(--text-muted);
+}
+
+.arch__caption {
+  margin-top: 0.9rem;
+  font-size: 0.8rem;
+  color: var(--text-muted);
+  text-align: center;
+}

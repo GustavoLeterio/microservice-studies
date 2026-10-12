@@ -1,0 +1,59 @@
+<div class="search" [class.is-open]="open() && query().trim().length > 0">
+  <label class="search__field">
+    <span class="visually-hidden">Buscar na documentação</span>
+    <app-icon class="search__icon" name="search" />
+    <input
+      #field
+      type="search"
+      autocomplete="off"
+      spellcheck="false"
+      placeholder="Buscar páginas, serviços, endpoints..."
+      role="combobox"
+      aria-controls="search-results"
+      aria-autocomplete="list"
+      [attr.aria-expanded]="open() && results().length > 0"
+      [attr.aria-activedescendant]="open() && results().length ? 'search-option-' + activeIndex() : null"
+      [value]="query()"
+      (input)="onInput(field.value)"
+      (keydown)="onKeydown($event)"
+      (focus)="open.set(true)"
+      (blur)="close()"
+    />
+    <kbd class="search__kbd" aria-hidden="true">Ctrl K</kbd>
+  </label>
+
+  @if (open() && query().trim().length > 0) {
+    <div class="search__panel">
+      @if (results().length) {
+        <ul id="search-results" class="results" role="listbox" aria-label="Resultados da busca">
+          @for (item of results(); track item.kind + item.path + (item.fragment ?? '')) {
+            <li
+              class="result"
+              role="option"
+              [id]="'search-option-' + $index"
+              [class.is-active]="$index === activeIndex()"
+              [attr.aria-selected]="$index === activeIndex()"
+              (mousedown)="$event.preventDefault()"
+              (mouseenter)="activeIndex.set($index)"
+              (click)="select(item)"
+            >
+              <span class="result__kind" [attr.data-kind]="item.kind">{{ kindLabel[item.kind] }}</span>
+              <span class="result__body">
+                <span class="result__title">
+                  @if (item.method) {
+                    <app-method-badge [method]="item.method" />
+                  }
+                  <span [class.result__path]="item.kind === 'endpoint'">{{ item.title }}</span>
+                </span>
+                <span class="result__subtitle">{{ item.subtitle }}</span>
+              </span>
+            </li>
+          }
+        </ul>
+      } @else {
+        <p class="search__empty">Nada encontrado para "{{ query() }}".</p>
+      }
+      <p class="search__hint"><kbd>↑</kbd><kbd>↓</kbd> navegar · <kbd>Enter</kbd> abrir · <kbd>Esc</kbd> fechar</p>
+    </div>
+  }
+</div>

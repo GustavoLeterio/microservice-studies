@@ -1,0 +1,54 @@
+// Estilos para o texto rico vindo do conteúdo (renderizado via [innerHTML]).
+.prose {
+  color: var(--text);
+  font-size: 1rem;
+  line-height: 1.75;
+
+  p + p {
+    margin-top: 0.85rem;
+  }
+
+  strong {
+    color: var(--heading);
+    font-weight: 650;
+  }
+
+  em {
+    color: var(--text-soft);
+  }
+
+  a {
+    font-weight: 500;
+    text-decoration: underline;
+    text-decoration-color: color-mix(in srgb, var(--accent) 40%, transparent);
+    text-underline-offset: 3px;
+
+    &:hover {
+      text-decoration-color: var(--accent);
+    }
+  }
+
+  code {
+    padding: 0.1rem 0.38rem;
+    font-size: 0.86em;
+    border-radius: 5px;
+    color: var(--inline-code-text);
+    background: var(--inline-code-bg);
+    border: 1px solid var(--border);
+    overflow-wrap: anywhere;
+  }
+
+  ul,
+  ol {
+    margin: 0.5rem 0 0;
+    padding-left: 1.35rem;
+  }
+
+  li + li {
+    margin-top: 0.35rem;
+  }
+
+  li::marker {
+    color: var(--text-muted);
+  }
+}

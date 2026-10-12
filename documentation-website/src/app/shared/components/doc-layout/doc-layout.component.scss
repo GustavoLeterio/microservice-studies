@@ -1,0 +1,41 @@
+@use 'mixins' as *;
+
+:host {
+  display: block;
+}
+
+.layout {
+  display: grid;
+  grid-template-columns: minmax(0, var(--content-max)) var(--toc-w);
+  justify-content: center;
+  gap: 3rem;
+  padding: 2.5rem 2.5rem 4rem;
+
+  @include down(xl) {
+    grid-template-columns: minmax(0, var(--content-max));
+  }
+
+  @include down(md) {
+    padding: 1.6rem 1.1rem 3rem;
+  }
+}
+
+.layout__article {
+  display: flex;
+  flex-direction: column;
+  gap: 2.6rem;
+  min-width: 0;
+}
+
+.layout__toc {
+  position: sticky;
+  top: calc(var(--header-h) + 2rem);
+  align-self: start;
+  max-height: calc(100vh - var(--header-h) - 4rem);
+  overflow-y: auto;
+  @include scrollbar-thin;
+
+  @include down(xl) {
+    display: none;
+  }
+}

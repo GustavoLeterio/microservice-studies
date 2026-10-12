@@ -1,0 +1,58 @@
+@use 'mixins' as *;
+
+:host {
+  display: block;
+  min-height: 100vh;
+}
+
+.skip-link {
+  position: absolute;
+  z-index: 100;
+  top: 0.5rem;
+  left: 0.5rem;
+  padding: 0.5rem 0.9rem;
+  border-radius: var(--radius);
+  background: var(--accent);
+  color: var(--accent-contrast);
+  font-weight: 600;
+  transform: translateY(-140%);
+
+  &:focus {
+    transform: none;
+  }
+}
+
+.shell {
+  display: flex;
+  min-height: 100vh;
+  padding-top: var(--header-h);
+}
+
+.shell__main {
+  flex: 1;
+  min-width: 0;
+  background: var(--bg);
+}
+
+.shell__overlay {
+  display: none;
+}
+
+@include down(md) {
+  .shell__overlay {
+    @include reset-button;
+    display: block;
+    position: fixed;
+    inset: var(--header-h) 0 0 0;
+    z-index: 30;
+    background: var(--overlay);
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.2s ease;
+
+    &.is-visible {
+      opacity: 1;
+      pointer-events: auto;
+    }
+  }
+}

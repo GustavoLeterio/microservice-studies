@@ -1,0 +1,48 @@
+@use 'mixins' as *;
+
+.filters {
+  display: grid;
+  grid-template-columns: 140px 1fr 1.4fr;
+  gap: 0.8rem;
+
+  @include down(md) {
+    grid-template-columns: 1fr;
+  }
+
+  label {
+    display: flex;
+    flex-direction: column;
+    gap: 0.3rem;
+    font-size: 0.78rem;
+    font-weight: 700;
+    color: var(--text-muted);
+  }
+
+  select,
+  input {
+    height: 40px;
+    padding: 0 0.7rem;
+    border: 1px solid var(--border-strong);
+    border-radius: var(--radius);
+    background: var(--surface);
+  }
+}
+
+.count {
+  margin-top: 0.7rem;
+  font-size: 0.85rem;
+  color: var(--text-muted);
+}
+
+.list {
+  display: flex;
+  flex-direction: column;
+  gap: 1.2rem;
+}
+
+.item__service {
+  margin-bottom: 0.4rem;
+  font-size: 0.82rem;
+  font-weight: 650;
+  color: var(--text-muted);
+}

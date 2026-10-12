@@ -1,0 +1,46 @@
+:host {
+  --callout-color: var(--info);
+  --callout-bg: var(--info-soft);
+
+  display: flex;
+  gap: 0.8rem;
+  padding: 0.9rem 1.1rem;
+  border: 1px solid color-mix(in srgb, var(--callout-color) 30%, transparent);
+  border-left: 4px solid var(--callout-color);
+  border-radius: var(--radius);
+  background: var(--callout-bg);
+}
+
+:host([data-variant='tip']) {
+  --callout-color: var(--tip);
+  --callout-bg: var(--tip-soft);
+}
+
+:host([data-variant='warning']) {
+  --callout-color: var(--warning);
+  --callout-bg: var(--warning-soft);
+}
+
+:host([data-variant='danger']) {
+  --callout-color: var(--danger);
+  --callout-bg: var(--danger-soft);
+}
+
+.callout__icon {
+  width: 20px;
+  height: 20px;
+  margin-top: 0.2rem;
+  color: var(--callout-color);
+}
+
+.callout__body {
+  min-width: 0;
+  flex: 1;
+}
+
+.callout__title {
+  margin-bottom: 0.2rem;
+  font-weight: 700;
+  font-size: 0.92rem;
+  color: var(--callout-color);
+}

@@ -1,0 +1,101 @@
+@use 'mixins' as *;
+
+:host {
+  display: block;
+}
+
+.flow {
+  margin: 0;
+  padding: 1.1rem;
+  border: 1px dashed var(--border-strong);
+  border-radius: var(--radius-lg);
+  background: var(--bg-soft);
+}
+
+.flow__track {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: stretch;
+  gap: 0.55rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+
+  @include down(sm) {
+    flex-direction: column;
+  }
+}
+
+.flow__node {
+  --tone: var(--text-soft);
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 0.15rem;
+  min-width: 120px;
+  flex: 1 1 0;
+  padding: 0.6rem 0.8rem;
+  border-radius: var(--radius);
+  border: 1px solid color-mix(in srgb, var(--tone) 35%, var(--border));
+  border-top: 3px solid var(--tone);
+  background: var(--surface);
+  box-shadow: 0 1px 2px rgba(15, 23, 42, 0.04);
+
+  &[data-tone='accent'] {
+    --tone: var(--accent);
+  }
+
+  &[data-tone='platform'] {
+    --tone: var(--tone-platform);
+  }
+
+  &[data-tone='data'] {
+    --tone: var(--tone-data);
+  }
+
+  &[data-tone='external'] {
+    --tone: var(--tone-external);
+  }
+
+  &[data-tone='observability'] {
+    --tone: var(--tone-observability);
+  }
+}
+
+.flow__label {
+  font-weight: 650;
+  font-size: 0.88rem;
+  color: var(--heading);
+  line-height: 1.3;
+}
+
+.flow__sub {
+  font-size: 0.76rem;
+  color: var(--text-muted);
+  line-height: 1.35;
+  @include mono;
+}
+
+.flow__arrow {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--text-muted);
+
+  app-icon {
+    width: 18px;
+    height: 18px;
+  }
+
+  @include down(sm) {
+    transform: rotate(90deg);
+  }
+}
+
+.flow__caption {
+  margin-top: 0.8rem;
+  font-size: 0.85rem;
+  color: var(--text-soft);
+  line-height: 1.55;
+}

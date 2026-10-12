@@ -1,0 +1,73 @@
+@use 'sass:map';
+
+$breakpoints: (
+  sm: 600px,
+  md: 960px,
+  lg: 1200px,
+  xl: 1380px,
+);
+
+@mixin up($bp) {
+  @media (min-width: map.get($breakpoints, $bp)) {
+    @content;
+  }
+}
+
+@mixin down($bp) {
+  @media (max-width: (map.get($breakpoints, $bp) - 0.02px)) {
+    @content;
+  }
+}
+
+@mixin focus-ring {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
+@mixin reset-button {
+  appearance: none;
+  background: none;
+  border: 0;
+  padding: 0;
+  margin: 0;
+  font: inherit;
+  color: inherit;
+  cursor: pointer;
+}
+
+@mixin card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+}
+
+@mixin scrollbar-thin {
+  scrollbar-width: thin;
+  scrollbar-color: var(--border-strong) transparent;
+}
+
+@mixin truncate {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+@mixin mono {
+  font-family: var(--font-mono);
+  font-variant-ligatures: none;
+}
+
+// Pequena "pílula" usada em badges, chips e tags.
+@mixin pill($color: var(--text-soft)) {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3rem;
+  padding: 0.12rem 0.55rem;
+  border-radius: 999px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  line-height: 1.5;
+  color: $color;
+  background: color-mix(in srgb, #{$color} 12%, transparent);
+  border: 1px solid color-mix(in srgb, #{$color} 28%, transparent);
+}

@@ -1,0 +1,125 @@
+@use 'mixins' as *;
+
+:host {
+  display: block;
+}
+
+.code {
+  margin: 0;
+  overflow: hidden;
+  border: 1px solid var(--code-border);
+  border-radius: var(--radius);
+  background: var(--code-bg);
+}
+
+.code__header {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.45rem 0.6rem 0.45rem 0.9rem;
+  border-bottom: 1px solid var(--code-border);
+  background: var(--code-header-bg);
+  color: var(--code-muted);
+  font-size: 0.78rem;
+}
+
+.code__file {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  min-width: 0;
+  @include mono;
+  color: #c9d1d9;
+
+  span {
+    @include truncate;
+  }
+}
+
+.code__lang {
+  margin-left: auto;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  font-size: 0.68rem;
+  font-weight: 600;
+}
+
+.code__copy {
+  @include reset-button;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  padding: 0.25rem 0.55rem;
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--code-border);
+  color: #c9d1d9;
+  font-size: 0.74rem;
+  transition: background-color 0.15s ease, color 0.15s ease;
+
+  .code__file + & {
+    margin-left: auto;
+  }
+
+  &:hover {
+    background: rgba(255, 255, 255, 0.06);
+  }
+
+  &.is-copied {
+    color: #7ee787;
+    border-color: rgba(126, 231, 135, 0.4);
+  }
+}
+
+.code__body {
+  display: flex;
+  overflow-x: auto;
+  @include scrollbar-thin;
+}
+
+.code__gutter,
+.code__pre {
+  font-size: 0.83rem;
+  line-height: 1.65;
+  @include mono;
+}
+
+.code__gutter {
+  position: sticky;
+  left: 0;
+  display: flex;
+  flex-direction: column;
+  padding: 0.9rem 0.6rem 0.9rem 0.9rem;
+  text-align: right;
+  color: #4b5563;
+  background: var(--code-bg);
+  user-select: none;
+  border-right: 1px solid rgba(255, 255, 255, 0.04);
+}
+
+.code__pre {
+  flex: 1;
+  margin: 0;
+  padding: 0.9rem 1.1rem 0.9rem 0.9rem;
+  color: var(--code-text);
+  white-space: pre;
+  tab-size: 2;
+
+  code {
+    font: inherit;
+  }
+}
+
+.code__caption {
+  padding: 0.55rem 0.9rem;
+  border-top: 1px solid var(--code-border);
+  background: var(--code-header-bg);
+  color: #aab4c3;
+  font-size: 0.82rem;
+  line-height: 1.5;
+
+  ::ng-deep code {
+    color: #e6edf3;
+    background: rgba(255, 255, 255, 0.06);
+    border-color: transparent;
+  }
+}

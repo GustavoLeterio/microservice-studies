@@ -1,0 +1,22 @@
+<div class="tabs">
+  <div class="tabs__list" role="tablist" (keydown)="onKeydown($event)">
+    @for (tab of tabs(); track $index) {
+      <button
+        type="button"
+        role="tab"
+        class="tabs__tab"
+        [id]="baseId + '-tab-' + $index"
+        [class.is-active]="active() === $index"
+        [attr.aria-selected]="active() === $index"
+        [attr.aria-controls]="baseId + '-panel'"
+        [attr.tabindex]="active() === $index ? 0 : -1"
+        (click)="active.set($index)"
+      >
+        {{ tab.label }}
+      </button>
+    }
+  </div>
+  <div class="tabs__panel" role="tabpanel" [id]="baseId + '-panel'" [attr.aria-labelledby]="baseId + '-tab-' + active()">
+    <app-doc-blocks [blocks]="tabs()[active()].blocks" />
+  </div>
+</div>

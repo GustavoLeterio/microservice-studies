@@ -1,0 +1,139 @@
+2026-10-12T13:12:06.270Z  INFO 1 --- [product-microservice] [main] o.s.c.c.c.ConfigServerConfigDataLoader   : Fetching config from server at : http://config-server:8888
+2026-10-12T13:12:06.319Z  INFO 1 --- [product-microservice] [main] o.s.c.c.c.ConfigServerConfigDataLoader   : Located environment: name=application, profiles=[default], label=null, version=null, state=null
+2026-10-12T13:12:06.278Z  INFO 1 --- [product-microservice] [main] o.s.c.c.c.ConfigServerConfigDataLoader   : Fetching config from server at : http://config-server:8888
+2026-10-12T13:12:06.338Z  INFO 1 --- [product-microservice] [main] o.s.c.c.c.ConfigServerConfigDataLoader   : Located environment: name=application, profiles=[default], label=null, version=null, state=null
+2026-10-12T13:12:06.343Z  INFO 1 --- [product-microservice] [main] o.s.c.c.c.ConfigServerConfigDataLoader   : Fetching config from server at : http://config-server:8888
+2026-10-12T13:12:06.346Z  INFO 1 --- [product-microservice] [main] o.s.c.c.c.ConfigServerConfigDataLoader   : Located environment: name=product-microservice, profiles=[default], label=null, version=null, state=null
+2026-10-12T13:12:06.354Z  INFO 1 --- [product-microservice] [main] o.s.c.c.c.ConfigServerConfigDataLoader   : Fetching config from server at : http://config-server:8888
+2026-10-12T13:12:06.357Z  INFO 1 --- [product-microservice] [main] o.s.c.c.c.ConfigServerConfigDataLoader   : Located environment: name=product-microservice, profiles=[default], label=null, version=null, state=null
+2026-10-12T13:12:10.478Z  INFO 1 --- [product-microservice] [main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2026-10-12T13:12:10.504Z  INFO 1 --- [product-microservice] [main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2026-10-12T13:12:11.060Z  INFO 1 --- [product-microservice] [main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 519 ms. Found 2 JPA repository interfaces.
+2026-10-12T13:12:11.112Z  INFO 1 --- [product-microservice] [main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 551 ms. Found 2 JPA repository interfaces.
+2026-10-12T13:12:11.887Z  INFO 1 --- [product-microservice] [main] o.s.cloud.context.scope.GenericScope     : BeanFactory id=1ca1db2e-c607-34b0-8691-36857f4b4625
+2026-10-12T13:12:12.051Z  INFO 1 --- [product-microservice] [main] o.s.cloud.context.scope.GenericScope     : BeanFactory id=1ca1db2e-c607-34b0-8691-36857f4b4625
+2026-10-12T13:12:13.042Z  INFO 1 --- [product-microservice] [main] o.s.boot.tomcat.TomcatWebServer          : Tomcat initialized with port 8092 (http)
+2026-10-12T13:12:13.094Z  INFO 1 --- [product-microservice] [main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2026-10-12T13:12:13.098Z  INFO 1 --- [product-microservice] [main] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/11.0.24]
+2026-10-12T13:12:13.183Z  INFO 1 --- [product-microservice] [main] o.s.boot.tomcat.TomcatWebServer          : Tomcat initialized with port 8092 (http)
+2026-10-12T13:12:13.197Z  INFO 1 --- [product-microservice] [main] b.w.c.s.WebApplicationContextInitializer : Root WebApplicationContext: initialization completed in 6844 ms
+2026-10-12T13:12:13.226Z  INFO 1 --- [product-microservice] [main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2026-10-12T13:12:13.230Z  INFO 1 --- [product-microservice] [main] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/11.0.24]
+2026-10-12T13:12:13.325Z  INFO 1 --- [product-microservice] [main] b.w.c.s.WebApplicationContextInitializer : Root WebApplicationContext: initialization completed in 6940 ms
+2026-10-12T13:12:14.486Z  INFO 1 --- [product-microservice] [main] org.hibernate.orm.jpa                    : HHH008540: Processing PersistenceUnitInfo [name: default]
+2026-10-12T13:12:14.635Z  INFO 1 --- [product-microservice] [main] org.hibernate.orm.core                   : HHH000001: Hibernate ORM core version 7.4.5.Final
+2026-10-12T13:12:14.643Z  INFO 1 --- [product-microservice] [main] org.hibernate.orm.jpa                    : HHH008540: Processing PersistenceUnitInfo [name: default]
+2026-10-12T13:12:14.752Z  INFO 1 --- [product-microservice] [main] org.hibernate.orm.core                   : HHH000001: Hibernate ORM core version 7.4.5.Final
+2026-10-12T13:12:15.945Z  INFO 1 --- [product-microservice] [main] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+2026-10-12T13:12:15.960Z  INFO 1 --- [product-microservice] [main] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+2026-10-12T13:12:16.052Z  INFO 1 --- [product-microservice] [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2026-10-12T13:12:16.066Z  INFO 1 --- [product-microservice] [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2026-10-12T13:12:16.878Z  INFO 1 --- [product-microservice] [main] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection org.postgresql.jdbc.PgConnection@943cf5
+2026-10-12T13:12:16.979Z  INFO 1 --- [product-microservice] [main] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection org.postgresql.jdbc.PgConnection@1e4b9592
+2026-10-12T13:12:16.994Z  INFO 1 --- [product-microservice] [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2026-10-12T13:12:17.595Z  WARN 1 --- [product-microservice] [main] org.hibernate.orm.deprecation            : HHH90000025: PostgreSQLDialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+2026-10-12T13:12:17.789Z  INFO 1 --- [product-microservice] [main] org.hibernate.orm.connections.pooling    : HHH10001005: Database info:
+	Database JDBC URL [jdbc:postgresql://postgres:5432/product_db]
+	Database driver: PostgreSQL JDBC Driver
+	Database dialect: PostgreSQLDialect
+	Database version: 18.6
+	Default catalog/schema: product_db/public
+	Autocommit mode: undefined/unknown
+	Isolation level: READ_COMMITTED [default READ_COMMITTED]
+	JDBC fetch size: none
+	Pool: DataSourceConnectionProvider
+	Minimum pool size: undefined/unknown
+	Maximum pool size: undefined/unknown
+2026-10-12T13:12:17.803Z  INFO 1 --- [product-microservice] [main] org.hibernate.orm.connections.pooling    : HHH10001005: Database info:
+	Database JDBC URL [jdbc:postgresql://postgres:5432/product_db]
+	Database driver: PostgreSQL JDBC Driver
+	Database dialect: PostgreSQLDialect
+	Database version: 18.6
+	Default catalog/schema: product_db/public
+	Autocommit mode: undefined/unknown
+	Isolation level: READ_COMMITTED [default READ_COMMITTED]
+	JDBC fetch size: none
+	Pool: DataSourceConnectionProvider
+	Minimum pool size: undefined/unknown
+	Maximum pool size: undefined/unknown
+2026-10-12T13:12:23.184Z  INFO 1 --- [product-microservice] [main] org.hibernate.orm.core                   : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2026-10-12T13:12:23.256Z  INFO 1 --- [product-microservice] [main] org.hibernate.orm.core                   : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2026-10-12T13:12:23.396Z  INFO 1 --- [product-microservice] [main] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2026-10-12T13:12:23.430Z  INFO 1 --- [product-microservice] [main] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2026-10-12T13:12:23.663Z  INFO 1 --- [product-microservice] [main] o.s.d.j.r.query.QueryEnhancerFactories   : Hibernate is in classpath; If applicable, HQL parser will be used.
+2026-10-12T13:12:24.788Z  WARN 1 --- [product-microservice] [main] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2026-10-12T13:12:26.979Z  INFO 1 --- [product-microservice] [main] DiscoveryClientOptionalArgsConfiguration : Eureka HTTP Client uses RestClient.
+2026-10-12T13:12:27.070Z  WARN 1 --- [product-microservice] [main] iguration$LoadBalancerCaffeineWarnLogger : Spring Cloud LoadBalancer is currently working with the default cache. While this cache implementation is useful for development and tests, it's recommended to use Caffeine cache in production.You can switch to using Caffeine cache, by adding it and org.springframework.cache.caffeine.CaffeineCacheManager to the classpath.
+2026-10-12T13:12:27.076Z  INFO 1 --- [product-microservice] [main] DiscoveryClientOptionalArgsConfiguration : Eureka HTTP Client uses RestClient.
+2026-10-12T13:12:27.084Z  INFO 1 --- [product-microservice] [main] o.s.b.a.e.web.EndpointLinksResolver      : Exposing 3 endpoints beneath base path '/actuator'
+2026-10-12T13:12:27.160Z  WARN 1 --- [product-microservice] [main] iguration$LoadBalancerCaffeineWarnLogger : Spring Cloud LoadBalancer is currently working with the default cache. While this cache implementation is useful for development and tests, it's recommended to use Caffeine cache in production.You can switch to using Caffeine cache, by adding it and org.springframework.cache.caffeine.CaffeineCacheManager to the classpath.
+2026-10-12T13:12:27.177Z  INFO 1 --- [product-microservice] [main] o.s.b.a.e.web.EndpointLinksResolver      : Exposing 3 endpoints beneath base path '/actuator'
+2026-10-12T13:12:27.263Z  INFO 1 --- [product-microservice] [main] o.s.c.n.eureka.InstanceInfoFactory       : Setting initial instance status as: STARTING
+2026-10-12T13:12:27.325Z  INFO 1 --- [product-microservice] [main] com.netflix.discovery.DiscoveryClient    : Initializing Eureka in region us-east-1
+2026-10-12T13:12:27.332Z  INFO 1 --- [product-microservice] [main] o.s.c.n.eureka.InstanceInfoFactory       : Setting initial instance status as: STARTING
+2026-10-12T13:12:27.349Z  INFO 1 --- [product-microservice] [main] com.netflix.discovery.DiscoveryClient    : Disable delta property : false
+2026-10-12T13:12:27.351Z  INFO 1 --- [product-microservice] [main] com.netflix.discovery.DiscoveryClient    : Single vip registry refresh property : null
+2026-10-12T13:12:27.352Z  INFO 1 --- [product-microservice] [main] com.netflix.discovery.DiscoveryClient    : Force full registry fetch : false
+2026-10-12T13:12:27.353Z  INFO 1 --- [product-microservice] [main] com.netflix.discovery.DiscoveryClient    : Application is null : false
+2026-10-12T13:12:27.354Z  INFO 1 --- [product-microservice] [main] com.netflix.discovery.DiscoveryClient    : Registered Applications size is zero : true
+2026-10-12T13:12:27.355Z  INFO 1 --- [product-microservice] [main] com.netflix.discovery.DiscoveryClient    : Application version is -1: true
+2026-10-12T13:12:27.356Z  INFO 1 --- [product-microservice] [main] com.netflix.discovery.DiscoveryClient    : Getting all instance registry info from the eureka server
+2026-10-12T13:12:27.381Z  INFO 1 --- [product-microservice] [main] com.netflix.discovery.DiscoveryClient    : Initializing Eureka in region us-east-1
+2026-10-12T13:12:27.391Z  INFO 1 --- [product-microservice] [main] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
+2026-10-12T13:12:27.412Z  INFO 1 --- [product-microservice] [main] com.netflix.discovery.DiscoveryClient    : Disable delta property : false
+2026-10-12T13:12:27.414Z  INFO 1 --- [product-microservice] [main] com.netflix.discovery.DiscoveryClient    : Single vip registry refresh property : null
+2026-10-12T13:12:27.415Z  INFO 1 --- [product-microservice] [main] com.netflix.discovery.DiscoveryClient    : Force full registry fetch : false
+2026-10-12T13:12:27.419Z  INFO 1 --- [product-microservice] [main] com.netflix.discovery.DiscoveryClient    : Application is null : false
+2026-10-12T13:12:27.421Z  INFO 1 --- [product-microservice] [main] com.netflix.discovery.DiscoveryClient    : Registered Applications size is zero : true
+2026-10-12T13:12:27.422Z  INFO 1 --- [product-microservice] [main] com.netflix.discovery.DiscoveryClient    : Application version is -1: true
+2026-10-12T13:12:27.423Z  INFO 1 --- [product-microservice] [main] com.netflix.discovery.DiscoveryClient    : Getting all instance registry info from the eureka server
+2026-10-12T13:12:27.999Z  INFO 1 --- [product-microservice] [main] com.netflix.discovery.DiscoveryClient    : The response status is 200
+2026-10-12T13:12:28.008Z  INFO 1 --- [product-microservice] [main] com.netflix.discovery.DiscoveryClient    : Starting heartbeat executor: renew interval is: 30
+2026-10-12T13:12:28.013Z  INFO 1 --- [product-microservice] [main] c.n.discovery.InstanceInfoReplicator     : InstanceInfoReplicator onDemand update allowed rate per min is 4
+2026-10-12T13:12:28.016Z  INFO 1 --- [product-microservice] [main] com.netflix.discovery.DiscoveryClient    : Discovery Client initialized at timestamp 1791810748016 with initial instances count: 0
+2026-10-12T13:12:28.024Z  INFO 1 --- [product-microservice] [main] o.s.c.n.e.s.EurekaServiceRegistry        : Registering application PRODUCT-MICROSERVICE with eureka with status UP
+2026-10-12T13:12:28.033Z  INFO 1 --- [product-microservice] [main] com.netflix.discovery.DiscoveryClient    : Saw local status change event StatusChangeEvent [timestamp=1791810748033, current=UP, previous=STARTING]
+2026-10-12T13:12:28.036Z  INFO 1 --- [product-microservice] [DiscoveryClient-InstanceInfoReplicator-%d] com.netflix.discovery.DiscoveryClient    : DiscoveryClient_PRODUCT-MICROSERVICE/34ebd473defa:product-microservice:8092: registering service...
+2026-10-12T13:12:28.070Z  INFO 1 --- [product-microservice] [main] o.s.boot.tomcat.TomcatWebServer          : Tomcat started on port 8092 (http) with context path '/'
+2026-10-12T13:12:28.073Z  INFO 1 --- [product-microservice] [main] .s.c.n.e.s.EurekaAutoServiceRegistration : Updating port to 8092
+2026-10-12T13:12:28.135Z  INFO 1 --- [product-microservice] [DiscoveryClient-InstanceInfoReplicator-%d] com.netflix.discovery.DiscoveryClient    : DiscoveryClient_PRODUCT-MICROSERVICE/34ebd473defa:product-microservice:8092 - registration status: 204
+2026-10-12T13:12:28.187Z  INFO 1 --- [product-microservice] [main] com.netflix.discovery.DiscoveryClient    : The response status is 200
+2026-10-12T13:12:28.192Z  INFO 1 --- [product-microservice] [main] com.netflix.discovery.DiscoveryClient    : Starting heartbeat executor: renew interval is: 30
+2026-10-12T13:12:28.198Z  INFO 1 --- [product-microservice] [main] c.n.discovery.InstanceInfoReplicator     : InstanceInfoReplicator onDemand update allowed rate per min is 4
+2026-10-12T13:12:28.203Z  INFO 1 --- [product-microservice] [main] com.netflix.discovery.DiscoveryClient    : Discovery Client initialized at timestamp 1791810748202 with initial instances count: 0
+2026-10-12T13:12:28.211Z  INFO 1 --- [product-microservice] [main] o.s.c.n.e.s.EurekaServiceRegistry        : Registering application PRODUCT-MICROSERVICE with eureka with status UP
+2026-10-12T13:12:28.214Z  INFO 1 --- [product-microservice] [main] com.netflix.discovery.DiscoveryClient    : Saw local status change event StatusChangeEvent [timestamp=1791810748214, current=UP, previous=STARTING]
+2026-10-12T13:12:28.223Z  INFO 1 --- [product-microservice] [DiscoveryClient-InstanceInfoReplicator-%d] com.netflix.discovery.DiscoveryClient    : DiscoveryClient_PRODUCT-MICROSERVICE/f5da9a4f141f:product-microservice:8092: registering service...
+2026-10-12T13:12:28.226Z  WARN 1 --- [product-microservice] [main] o.s.core.events.SpringDocAppInitializer  : SpringDoc /v3/api-docs endpoint is enabled by default. To disable it in production, set the property 'springdoc.api-docs.enabled=false'
+2026-10-12T13:12:28.228Z  WARN 1 --- [product-microservice] [main] o.s.core.events.SpringDocAppInitializer  : SpringDoc /swagger-ui.html endpoint is enabled by default. To disable it in production, set the property 'springdoc.swagger-ui.enabled=false'
+2026-10-12T13:12:28.253Z  INFO 1 --- [product-microservice] [main] o.s.boot.tomcat.TomcatWebServer          : Tomcat started on port 8092 (http) with context path '/'
+2026-10-12T13:12:28.257Z  INFO 1 --- [product-microservice] [main] .s.c.n.e.s.EurekaAutoServiceRegistration : Updating port to 8092
+2026-10-12T13:12:28.297Z  INFO 1 --- [product-microservice] [DiscoveryClient-InstanceInfoReplicator-%d] com.netflix.discovery.DiscoveryClient    : DiscoveryClient_PRODUCT-MICROSERVICE/f5da9a4f141f:product-microservice:8092 - registration status: 204
+2026-10-12T13:12:28.358Z  WARN 1 --- [product-microservice] [main] o.s.core.events.SpringDocAppInitializer  : SpringDoc /v3/api-docs endpoint is enabled by default. To disable it in production, set the property 'springdoc.api-docs.enabled=false'
+2026-10-12T13:12:28.359Z  WARN 1 --- [product-microservice] [main] o.s.core.events.SpringDocAppInitializer  : SpringDoc /swagger-ui.html endpoint is enabled by default. To disable it in production, set the property 'springdoc.swagger-ui.enabled=false'
+2026-10-12T13:12:58.010Z  INFO 1 --- [product-microservice] [DiscoveryClient-CacheRefreshExecutor-%d] com.netflix.discovery.DiscoveryClient    : Disable delta property : false
+2026-10-12T13:12:58.020Z  INFO 1 --- [product-microservice] [DiscoveryClient-CacheRefreshExecutor-%d] com.netflix.discovery.DiscoveryClient    : Single vip registry refresh property : null
+2026-10-12T13:12:58.021Z  INFO 1 --- [product-microservice] [DiscoveryClient-CacheRefreshExecutor-%d] com.netflix.discovery.DiscoveryClient    : Force full registry fetch : false
+2026-10-12T13:12:58.022Z  INFO 1 --- [product-microservice] [DiscoveryClient-CacheRefreshExecutor-%d] com.netflix.discovery.DiscoveryClient    : Application is null : false
+2026-10-12T13:12:58.023Z  INFO 1 --- [product-microservice] [DiscoveryClient-CacheRefreshExecutor-%d] com.netflix.discovery.DiscoveryClient    : Registered Applications size is zero : true
+2026-10-12T13:12:58.024Z  INFO 1 --- [product-microservice] [DiscoveryClient-CacheRefreshExecutor-%d] com.netflix.discovery.DiscoveryClient    : Application version is -1: false
+2026-10-12T13:12:58.026Z  INFO 1 --- [product-microservice] [DiscoveryClient-CacheRefreshExecutor-%d] com.netflix.discovery.DiscoveryClient    : Getting all instance registry info from the eureka server
+2026-10-12T13:12:58.193Z  INFO 1 --- [product-microservice] [DiscoveryClient-CacheRefreshExecutor-%d] com.netflix.discovery.DiscoveryClient    : Disable delta property : false
+2026-10-12T13:12:58.204Z  INFO 1 --- [product-microservice] [DiscoveryClient-CacheRefreshExecutor-%d] com.netflix.discovery.DiscoveryClient    : Single vip registry refresh property : null
+2026-10-12T13:12:58.205Z  INFO 1 --- [product-microservice] [DiscoveryClient-CacheRefreshExecutor-%d] com.netflix.discovery.DiscoveryClient    : Force full registry fetch : false
+2026-10-12T13:12:58.206Z  INFO 1 --- [product-microservice] [DiscoveryClient-CacheRefreshExecutor-%d] com.netflix.discovery.DiscoveryClient    : Application is null : false
+2026-10-12T13:12:58.206Z  INFO 1 --- [product-microservice] [DiscoveryClient-CacheRefreshExecutor-%d] com.netflix.discovery.DiscoveryClient    : Registered Applications size is zero : true
+2026-10-12T13:12:58.207Z  INFO 1 --- [product-microservice] [DiscoveryClient-CacheRefreshExecutor-%d] com.netflix.discovery.DiscoveryClient    : Application version is -1: false
+2026-10-12T13:12:58.208Z  INFO 1 --- [product-microservice] [DiscoveryClient-CacheRefreshExecutor-%d] com.netflix.discovery.DiscoveryClient    : Getting all instance registry info from the eureka server
+2026-10-12T13:12:58.237Z  INFO 1 --- [product-microservice] [DiscoveryClient-CacheRefreshExecutor-%d] com.netflix.discovery.DiscoveryClient    : The response status is 200
+2026-10-12T13:12:58.452Z  INFO 1 --- [product-microservice] [DiscoveryClient-CacheRefreshExecutor-%d] com.netflix.discovery.DiscoveryClient    : The response status is 200
+2026-10-12T13:12:59.504Z  INFO 1 --- [product-microservice] [http-nio-8092-exec-4] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2026-10-12T13:12:59.506Z  INFO 1 --- [product-microservice] [http-nio-8092-exec-4] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2026-10-12T13:12:59.536Z  INFO 1 --- [product-microservice] [http-nio-8092-exec-4] o.s.web.servlet.DispatcherServlet        : Completed initialization in 30 ms
+2026-10-12T13:13:12.427Z  INFO 1 --- [product-microservice] [http-nio-8092-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2026-10-12T13:13:12.429Z  INFO 1 --- [product-microservice] [http-nio-8092-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2026-10-12T13:13:12.464Z  INFO 1 --- [product-microservice] [http-nio-8092-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 33 ms
+2026-10-12T13:17:27.319Z  INFO 1 --- [product-microservice] [AsyncResolver-bootstrap-executor-%d] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
+2026-10-12T13:17:27.385Z  INFO 1 --- [product-microservice] [AsyncResolver-bootstrap-executor-%d] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
+2026-10-12T13:22:27.299Z  INFO 1 --- [product-microservice] [AsyncResolver-bootstrap-executor-%d] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
+2026-10-12T13:22:27.367Z  INFO 1 --- [product-microservice] [AsyncResolver-bootstrap-executor-%d] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration

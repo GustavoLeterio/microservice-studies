@@ -1,0 +1,66 @@
+spring:
+  cloud:
+    gateway:
+      server:
+        webflux:
+          routes:
+            - id: customer-microservice
+              uri: lb://customer-microservice
+              predicates:
+                - Path=/api/v1/customers/**,/v3/api-docs/customers
+              filters:
+                - PreserveHostHeader
+                - RewritePath=/v3/api-docs/customers, /v3/api-docs
+            - id: product-microservice
+              uri: lb://product-microservice
+              predicates:
+                - Path=/api/v1/products/**,/api/v1/categories/**,/v3/api-docs/products
+              filters:
+                - PreserveHostHeader
+                - RewritePath=/v3/api-docs/products, /v3/api-docs
+            - id: cart-microservice
+              uri: lb://cart-microservice
+              predicates:
+                - Path=/api/v1/carts/**,/v3/api-docs/cart
+              filters:
+                - PreserveHostHeader
+                - RewritePath=/v3/api-docs/cart, /v3/api-docs
+
+springdoc:
+  swagger-ui:
+    path: /swagger-ui.html
+    disable-swagger-default-url: true
+    urls:
+      - name: customers
+        url: /v3/api-docs/customers
+      - name: products
+        url: /v3/api-docs/products
+      - name: cart
+        url: /v3/api-docs/cart
+
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: ${EUREKA_CLIENT_SERVICEURL_DEFAULTZONE}
+
+logging:
+  level:
+    root: DEBUG
+    org.springframework.cloud.gateway: DEBUG
+    org.springframework.http.server.reactive: DEBUG
+    org.springframework.web.reactive: DEBUG
+    reactor.ipc.netty: DEBUG
+    reactor.netty: DEBUG
+
+server:
+  port: 8222
+
+
+management:
+    endpoints:
+        web:
+            exposure:
+                include: health, info, prometheus
+    endpoint:
+        health:
+            show-details: always

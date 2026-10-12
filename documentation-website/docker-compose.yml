@@ -1,0 +1,6 @@
+services:
+  docs:
+    build: .
+    container_name: documentation-website
+    ports:
+      - "4200:80"

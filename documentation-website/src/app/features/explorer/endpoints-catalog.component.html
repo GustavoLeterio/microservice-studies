@@ -1,0 +1,50 @@
+<app-doc-layout spyKey="endpoints-catalog">
+  <app-page-header
+    heading="Catálogo de endpoints"
+    lead="Rotas REST de negócio (customer, product e cart). Cada item mostra o handler, o corpo, as respostas de sucesso e os erros que o código pode devolver. Não há cliente HTTP aqui — só a documentação do contrato."
+  />
+
+  <app-section sectionId="filtros" heading="Filtros">
+    <div class="filters">
+      <label>
+        Método
+        <select [value]="methodFilter()" (change)="methodFilter.set($any($event.target).value)">
+          <option value="ALL">Todos</option>
+          @for (method of methods; track method) {
+            <option [value]="method">{{ method }}</option>
+          }
+        </select>
+      </label>
+      <label>
+        Serviço
+        <select [value]="serviceFilter()" (change)="serviceFilter.set($any($event.target).value)">
+          <option value="ALL">Todos</option>
+          @for (name of services; track name) {
+            <option [value]="name">{{ name }}</option>
+          }
+        </select>
+      </label>
+      <label class="filters__search">
+        Busca
+        <input type="search" placeholder="path, handler, resumo..." [value]="query()" (input)="query.set($any($event.target).value)" />
+      </label>
+    </div>
+    <p class="count">{{ filtered().length }} rota(s)</p>
+  </app-section>
+
+  <app-section sectionId="lista" heading="Rotas de negócio">
+    <div class="list">
+      @for (item of filtered(); track item.id) {
+        <div class="item">
+          <p class="item__service">
+            <a [routerLink]="'/explorador/servicos/' + item.service.id">{{ item.service.name }}</a>
+            · {{ item.group.title }}
+          </p>
+          <app-endpoint-panel [endpoint]="item" />
+        </div>
+      } @empty {
+        <p>Nenhuma rota com esses filtros.</p>
+      }
+    </div>
+  </app-section>
+</app-doc-layout>

@@ -1,0 +1,74 @@
+@use 'mixins' as *;
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  gap: 0.9rem;
+}
+
+.card {
+  @include card;
+  display: flex;
+  flex-direction: column;
+  gap: 0.55rem;
+  padding: 1rem 1.05rem;
+  color: var(--text);
+  border-top: 3px solid var(--accent);
+
+  &:hover {
+    text-decoration: none;
+    border-color: var(--accent);
+  }
+
+  &[data-kind='plataforma'] {
+    border-top-color: var(--tone-platform);
+  }
+
+  &[data-kind='dados'] {
+    border-top-color: var(--tone-data);
+  }
+
+  &[data-kind='observabilidade'] {
+    border-top-color: var(--tone-observability);
+  }
+
+  &[data-kind='biblioteca'] {
+    border-top-color: var(--text-muted);
+  }
+}
+
+.card__top {
+  display: flex;
+  justify-content: space-between;
+  gap: 0.6rem;
+  align-items: baseline;
+
+  strong {
+    color: var(--heading);
+  }
+
+  code {
+    font-size: 0.78rem;
+    color: var(--text-muted);
+  }
+}
+
+.card__tagline {
+  font-size: 0.9rem;
+  color: var(--text-soft);
+  flex: 1;
+}
+
+.card__more {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3rem;
+  margin-top: 0.2rem;
+  font-size: 0.82rem;
+  font-weight: 650;
+  color: var(--accent);
+}
+
+.hint {
+  color: var(--text-soft);
+}

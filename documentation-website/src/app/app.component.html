@@ -1,0 +1,18 @@
+<a class="skip-link" href="#conteudo">Pular para o conteúdo</a>
+
+<app-header />
+
+<div class="shell" [class.sidebar-open]="nav.sidebarOpen()">
+  <app-sidebar />
+  <button
+    type="button"
+    class="shell__overlay"
+    [class.is-visible]="nav.sidebarOpen()"
+    tabindex="-1"
+    aria-hidden="true"
+    (click)="nav.closeSidebar()"
+  ></button>
+  <main class="shell__main" id="conteudo">
+    <router-outlet />
+  </main>
+</div>

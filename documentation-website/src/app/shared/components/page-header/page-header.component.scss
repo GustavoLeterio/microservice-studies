@@ -1,0 +1,53 @@
+:host {
+  display: block;
+}
+
+.page-header {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  padding-bottom: 1.6rem;
+  border-bottom: 1px solid var(--border);
+}
+
+.breadcrumbs {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.35rem;
+  font-size: 0.82rem;
+  color: var(--text-muted);
+
+  a {
+    color: var(--text-muted);
+
+    &:hover {
+      color: var(--accent);
+    }
+  }
+
+  app-icon {
+    width: 14px;
+    height: 14px;
+  }
+}
+
+.page-header__eyebrow {
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--accent);
+}
+
+.page-header__title {
+  font-size: clamp(1.9rem, 3.4vw, 2.5rem);
+  font-weight: 750;
+  letter-spacing: -0.02em;
+}
+
+.page-header__lead {
+  font-size: 1.12rem;
+  line-height: 1.7;
+  color: var(--text-soft);
+}

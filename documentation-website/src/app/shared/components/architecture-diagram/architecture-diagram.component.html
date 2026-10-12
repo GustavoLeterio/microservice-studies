@@ -1,0 +1,84 @@
+<figure class="arch">
+  <div class="arch__grid">
+    <div class="arch__main">
+      <div class="lane lane--client">
+        <span class="lane__label">Clientes externos</span>
+        <div class="lane__clients">
+          <span class="client">Navegador</span>
+          <span class="client">Postman / curl</span>
+          <span class="client">Swagger UI</span>
+        </div>
+      </div>
+
+      <div class="connector"><span>HTTP :8222 · tráfego norte-sul</span></div>
+
+      <a class="node node--gateway" routerLink="/explorador/servicos/api-gateway">
+        <span class="node__kind">Porta de entrada</span>
+        <span class="node__name">api-gateway <small>:8222</small></span>
+        <span class="node__detail">Spring Cloud Gateway (WebFlux) · rotas lb://</span>
+      </a>
+
+      <div class="connector"><span>lb:// · Spring Cloud LoadBalancer + Eureka</span></div>
+
+      <div class="lane lane--services">
+        @for (service of services; track service.id) {
+          <a class="node node--service" [routerLink]="'/explorador/servicos/' + service.id">
+            <span class="node__kind">Microserviço{{ service.replicas ? ' · ×N' : '' }}</span>
+            <span class="node__name">{{ service.name }} <small>{{ service.port }}</small></span>
+            <span class="node__detail">{{ service.detail }}</span>
+          </a>
+        }
+      </div>
+
+      <div class="eastwest">
+        <span class="eastwest__badge">leste-oeste</span>
+        <span><strong>cart-microservice</strong> consulta <strong>customer</strong> e <strong>product</strong> via OpenFeign + LoadBalancer</span>
+      </div>
+
+      <div class="lane lane--data">
+        @for (database of databases; track $index) {
+          <a class="node node--data" [routerLink]="'/explorador/servicos/' + database.id">
+            <span class="node__name">{{ database.name }} <small>{{ database.port }}</small></span>
+            <span class="node__detail">{{ database.detail }}</span>
+          </a>
+        }
+      </div>
+    </div>
+
+    <div class="arch__side">
+      <div class="panel panel--platform">
+        <p class="panel__title">Plataforma</p>
+        <a class="node node--platform" routerLink="/explorador/servicos/config-server">
+          <span class="node__name">config-server <small>:8888</small></span>
+          <span class="node__detail">Configuração centralizada</span>
+        </a>
+        <a class="node node--platform" routerLink="/explorador/servicos/discovery-server">
+          <span class="node__name">discovery-server <small>:8761</small></span>
+          <span class="node__detail">Eureka · registro de serviços</span>
+        </a>
+        <p class="panel__note">Todos os serviços buscam suas properties no Config Server e se registram no Eureka.</p>
+      </div>
+
+      <div class="panel panel--observability">
+        <p class="panel__title">Observabilidade</p>
+        <a class="node node--observability" routerLink="/explorador/servicos/prometheus">
+          <span class="node__name">Prometheus <small>:9090</small></span>
+          <span class="node__detail">Coleta /actuator/prometheus via Eureka</span>
+        </a>
+        <a class="node node--observability" routerLink="/explorador/servicos/grafana">
+          <span class="node__name">Grafana <small>:3000</small></span>
+          <span class="node__detail">Dashboards sobre o Prometheus</span>
+        </a>
+      </div>
+
+      <div class="panel panel--library">
+        <p class="panel__title">Biblioteca interna</p>
+        <a class="node node--library" routerLink="/explorador/servicos/common-exceptions">
+          <span class="node__name">common-exceptions</span>
+          <span class="node__detail">ErrorResponse + GlobalExceptionHandler</span>
+        </a>
+      </div>
+    </div>
+  </div>
+  <figcaption class="arch__caption">Clique em qualquer componente para abrir os detalhes no Explorador do sistema.</figcaption>
+</figure>

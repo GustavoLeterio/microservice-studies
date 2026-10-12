@@ -1,0 +1,27 @@
+**/target/
+**/.git/
+**/.idea/
+**/.vscode/
+.mvn/
+**/mvnw
+**/mvnw.cmd
+
+.idea/
+.vscode/
+*.iml
+*.swp
+
+*.log
+tmp/
+
+.git
+.gitignore
+
+Dockerfile
+docker-compose.yml
+.dockerignore
+
+.env
+
+# Site de documentação (Angular): não participa do build das imagens Java
+documentation-website/

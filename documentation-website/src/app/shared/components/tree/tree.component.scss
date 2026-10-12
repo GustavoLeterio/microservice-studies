@@ -1,0 +1,102 @@
+@use 'mixins' as *;
+
+:host {
+  display: block;
+}
+
+.tree {
+  margin: 0;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  background: var(--bg-soft);
+  overflow: hidden;
+}
+
+.tree__root {
+  padding: 0.9rem 1rem;
+  overflow-x: auto;
+  @include scrollbar-thin;
+
+  > .tree__list {
+    padding-left: 0;
+    border-left: 0;
+    margin-left: 0;
+
+    > .tree__node::before {
+      display: none;
+    }
+  }
+}
+
+.tree__list {
+  margin: 0 0 0 0.55rem;
+  padding: 0 0 0 0.9rem;
+  list-style: none;
+  border-left: 1px dashed var(--border-strong);
+}
+
+.tree__node {
+  position: relative;
+  padding: 0.12rem 0;
+
+  &::before {
+    content: '';
+    position: absolute;
+    left: -0.9rem;
+    top: 0.85rem;
+    width: 0.7rem;
+    border-top: 1px dashed var(--border-strong);
+  }
+}
+
+.tree__item {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  padding: 0.1rem 0.4rem;
+  border-radius: 6px;
+  white-space: nowrap;
+  font-size: 0.86rem;
+  @include mono;
+
+  app-icon {
+    width: 15px;
+    height: 15px;
+    color: var(--text-muted);
+  }
+
+  &[data-kind='folder'] app-icon {
+    color: #d29922;
+  }
+
+  &[data-kind='module'] app-icon {
+    color: var(--accent);
+  }
+
+  &.is-highlight {
+    background: var(--accent-soft);
+    color: var(--heading);
+    font-weight: 600;
+  }
+}
+
+.tree__label {
+  color: var(--heading);
+}
+
+.tree__note {
+  font-family: var(--font-sans);
+  font-size: 0.78rem;
+  color: var(--text-muted);
+
+  &::before {
+    content: '— ';
+  }
+}
+
+.tree__caption {
+  padding: 0.55rem 1rem;
+  border-top: 1px solid var(--border);
+  font-size: 0.84rem;
+  color: var(--text-soft);
+}

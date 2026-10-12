@@ -1,0 +1,72 @@
+.sub {
+  margin: 1rem 0 0.5rem;
+  font-size: 1.05rem;
+
+  code {
+    margin-left: 0.4rem;
+    font-size: 0.82rem;
+    font-weight: 500;
+  }
+}
+
+.meta {
+  margin-top: 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.45rem;
+  color: var(--text-soft);
+
+  strong {
+    color: var(--heading);
+    margin-right: 0.4rem;
+  }
+}
+
+.links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.8rem;
+  margin: 1rem 0 0;
+  padding: 0;
+  list-style: none;
+
+  a {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.3rem;
+  }
+}
+
+.relation {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.45rem;
+  margin-bottom: 0.7rem;
+
+  .chip {
+    text-decoration: none;
+
+    &:hover {
+      border-color: var(--accent);
+      color: var(--accent);
+    }
+  }
+}
+
+.stack {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.muted {
+  color: var(--text-soft);
+}
+
+.docs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  margin-top: 1rem;
+}

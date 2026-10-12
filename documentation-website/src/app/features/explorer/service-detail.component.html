@@ -1,0 +1,231 @@
+@if (service(); as service) {
+  <app-doc-layout [spyKey]="service">
+    <app-page-header [heading]="service.name" [lead]="service.tagline" [eyebrow]="kindLabel[service.kind]" />
+
+    <app-section sectionId="sobre" heading="O que faz">
+      <p class="prose">{{ service.description }}</p>
+      <h3 class="sub">Responsabilidades</h3>
+      <ul class="prose">
+        @for (item of service.responsibilities; track item) {
+          <li>{{ item }}</li>
+        }
+      </ul>
+      <div class="meta">
+        <p><strong>Acesso</strong> {{ service.access }}</p>
+        @if (service.database) {
+          <p><strong>Persistência</strong> {{ service.database }}</p>
+        }
+        <p><strong>Imagem</strong> {{ service.image }}</p>
+      </div>
+      @if (service.links?.length) {
+        <ul class="links">
+          @for (link of service.links; track link.url) {
+            <li>
+              <a [href]="link.url" target="_blank" rel="noopener">{{ link.label }} <app-icon name="external" /></a>
+            </li>
+          }
+        </ul>
+      }
+    </app-section>
+
+    <app-section sectionId="tecnologias" heading="Tecnologias">
+      <ul class="chip-list">
+        @for (tech of service.technologies; track tech) {
+          <li class="chip">{{ tech }}</li>
+        }
+      </ul>
+    </app-section>
+
+    @if (service.dependencies?.length) {
+      <app-section sectionId="dependencias" heading="Dependências">
+        <div class="table-wrap">
+          <table class="doc-table">
+            <thead>
+              <tr>
+                <th>Artefato</th>
+                <th>Escopo</th>
+                <th>Origem</th>
+                <th>Para quê</th>
+              </tr>
+            </thead>
+            <tbody>
+              @for (dep of service.dependencies; track dep.artifact) {
+                <tr>
+                  <td><code>{{ dep.artifact }}</code></td>
+                  <td>{{ dep.scope }}</td>
+                  <td>{{ dep.origin }}</td>
+                  <td>{{ dep.purpose }}</td>
+                </tr>
+              }
+            </tbody>
+          </table>
+        </div>
+      </app-section>
+    }
+
+    @if (service.relations?.length) {
+      <app-section sectionId="relacoes" heading="Relações">
+        @for (relation of service.relations; track relation.label) {
+          <p class="relation">
+            <strong>{{ relation.label }}</strong>
+            @for (target of relation.targets; track target) {
+              <a class="chip" [routerLink]="'/explorador/servicos/' + target">{{ target }}</a>
+            }
+          </p>
+        }
+      </app-section>
+    }
+
+    @if (service.routes?.length) {
+      <app-section sectionId="rotas" heading="Rotas do gateway">
+        <div class="table-wrap">
+          <table class="doc-table">
+            <thead>
+              <tr>
+                <th>Id</th>
+                <th>URI</th>
+                <th>Predicates</th>
+                <th>Filters</th>
+              </tr>
+            </thead>
+            <tbody>
+              @for (route of service.routes; track route.id) {
+                <tr>
+                  <td><code>{{ route.id }}</code></td>
+                  <td><code>{{ route.uri }}</code></td>
+                  <td>
+                    @for (predicate of route.predicates; track predicate) {
+                      <div><code>{{ predicate }}</code></div>
+                    }
+                  </td>
+                  <td>
+                    @for (filter of route.filters; track filter) {
+                      <div><code>{{ filter }}</code></div>
+                    }
+                  </td>
+                </tr>
+              }
+            </tbody>
+          </table>
+        </div>
+      </app-section>
+    }
+
+    @if (service.endpointGroups?.length) {
+      <app-section sectionId="endpoints" heading="Endpoints">
+        @for (group of service.endpointGroups; track group.title) {
+          <h3 class="sub">{{ group.title }} <code>{{ group.basePath }}</code></h3>
+          @if (group.description) {
+            <p class="muted">{{ group.description }}</p>
+          }
+          <div class="stack">
+            @for (endpoint of group.endpoints; track endpoint.id) {
+              <app-endpoint-panel [endpoint]="endpoint" />
+            }
+          </div>
+        }
+      </app-section>
+    }
+
+    @if (service.exceptions?.length) {
+      <app-section sectionId="exceptions" heading="Exceptions">
+        <div class="table-wrap">
+          <table class="doc-table">
+            <thead>
+              <tr>
+                <th>Exception</th>
+                <th>Status</th>
+                <th>Quando</th>
+                <th>Handler</th>
+              </tr>
+            </thead>
+            <tbody>
+              @for (item of service.exceptions; track item.name) {
+                <tr>
+                  <td><code>{{ item.name }}</code></td>
+                  <td>{{ item.status }}</td>
+                  <td>{{ item.when }}</td>
+                  <td><code>{{ item.handler }}</code></td>
+                </tr>
+              }
+            </tbody>
+          </table>
+        </div>
+      </app-section>
+    }
+
+    @if (service.env?.length) {
+      <app-section sectionId="env" heading="Variáveis de ambiente">
+        <div class="table-wrap">
+          <table class="doc-table">
+            <thead>
+              <tr>
+                <th>Nome</th>
+                <th>Valor típico</th>
+                <th>Para quê</th>
+              </tr>
+            </thead>
+            <tbody>
+              @for (item of service.env; track item.name) {
+                <tr>
+                  <td><code>{{ item.name }}</code></td>
+                  <td><code>{{ item.value }}</code></td>
+                  <td>{{ item.purpose }}</td>
+                </tr>
+              }
+            </tbody>
+          </table>
+        </div>
+      </app-section>
+    }
+
+    @if (service.config?.length) {
+      <app-section sectionId="config" heading="Configuração">
+        @for (snippet of service.config; track snippet.file ?? $index) {
+          <app-code-block
+            [code]="snippet.code"
+            [language]="snippet.language"
+            [file]="snippet.file"
+            [caption]="snippet.caption"
+          />
+        }
+      </app-section>
+    }
+
+    @if (service.sourceFiles?.length) {
+      <app-section sectionId="fontes" heading="Arquivos-fonte">
+        <div class="table-wrap">
+          <table class="doc-table">
+            <thead>
+              <tr>
+                <th>Arquivo</th>
+                <th>Papel</th>
+              </tr>
+            </thead>
+            <tbody>
+              @for (file of service.sourceFiles; track file.path) {
+                <tr>
+                  <td><code>{{ file.path }}</code></td>
+                  <td>{{ file.role }}</td>
+                </tr>
+              }
+            </tbody>
+          </table>
+        </div>
+        @if (service.docs?.length) {
+          <p class="docs">
+            Leitura relacionada:
+            @for (doc of service.docs; track doc.path) {
+              <a [routerLink]="doc.path">{{ doc.label }}</a>
+            }
+          </p>
+        }
+      </app-section>
+    }
+  </app-doc-layout>
+} @else {
+  <app-doc-layout [showToc]="false">
+    <app-page-header heading="Serviço não encontrado" lead="Esse id não existe no catálogo." />
+    <p><a routerLink="/explorador">Voltar ao mapa</a></p>
+  </app-doc-layout>
+}

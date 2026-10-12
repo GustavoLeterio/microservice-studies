@@ -1,0 +1,156 @@
+@use 'mixins' as *;
+
+:host {
+  position: fixed;
+  inset: 0 0 auto 0;
+  z-index: 50;
+  display: block;
+  height: var(--header-h);
+  border-bottom: 1px solid var(--border);
+  background: var(--header-bg);
+  backdrop-filter: saturate(180%) blur(10px);
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  height: 100%;
+  padding: 0 1.25rem;
+
+  @include down(sm) {
+    gap: 0.6rem;
+    padding: 0 0.75rem;
+  }
+}
+
+.icon-button {
+  @include reset-button;
+  display: inline-grid;
+  place-items: center;
+  width: 40px;
+  height: 40px;
+  flex-shrink: 0;
+  border-radius: var(--radius);
+  color: var(--text-soft);
+  transition: background-color 0.15s ease, color 0.15s ease;
+
+  &:hover {
+    background: var(--bg-muted);
+    color: var(--heading);
+  }
+
+  app-icon {
+    width: 20px;
+    height: 20px;
+  }
+}
+
+.header__menu {
+  @include up(md) {
+    display: none;
+  }
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 0.65rem;
+  flex-shrink: 0;
+  width: calc(var(--sidebar-w) - 2.5rem);
+  color: var(--heading);
+
+  &:hover {
+    text-decoration: none;
+  }
+
+  @include down(lg) {
+    width: auto;
+  }
+}
+
+.brand__logo {
+  display: grid;
+  place-items: center;
+  width: 36px;
+  height: 36px;
+  border-radius: 10px;
+  color: var(--accent-contrast);
+  background: linear-gradient(135deg, var(--accent), var(--accent-strong));
+  box-shadow: 0 4px 14px color-mix(in srgb, var(--accent) 35%, transparent);
+
+  app-icon {
+    width: 20px;
+    height: 20px;
+  }
+}
+
+.brand__text {
+  display: flex;
+  flex-direction: column;
+  line-height: 1.2;
+
+  strong {
+    font-size: 0.95rem;
+    font-weight: 700;
+  }
+
+  small {
+    font-size: 0.74rem;
+    color: var(--text-muted);
+  }
+
+  @include down(md) {
+    display: none;
+  }
+}
+
+.header__search {
+  flex: 1;
+  max-width: 560px;
+}
+
+.header__actions {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  margin-left: auto;
+}
+
+.header__explore {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  height: 38px;
+  padding: 0 0.9rem;
+  border: 1px solid var(--border-strong);
+  border-radius: var(--radius);
+  font-size: 0.88rem;
+  font-weight: 600;
+  color: var(--heading);
+  white-space: nowrap;
+  transition: border-color 0.15s ease, background-color 0.15s ease;
+
+  &:hover,
+  &.is-active {
+    text-decoration: none;
+    border-color: var(--accent);
+    background: var(--accent-soft);
+  }
+
+  app-icon {
+    width: 18px;
+    height: 18px;
+    color: var(--accent);
+  }
+
+  @include down(lg) {
+    span {
+      display: none;
+    }
+
+    padding: 0;
+    width: 38px;
+    justify-content: center;
+  }
+}

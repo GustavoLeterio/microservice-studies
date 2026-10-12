@@ -1,0 +1,18 @@
+<figure class="flow">
+  <ol class="flow__track">
+    @for (node of nodes(); track $index) {
+      @if (!$first) {
+        <li class="flow__arrow" aria-hidden="true"><app-icon name="arrow-right" /></li>
+      }
+      <li class="flow__node" [attr.data-tone]="node.tone ?? 'default'">
+        <span class="flow__label">{{ node.label }}</span>
+        @if (node.sub) {
+          <span class="flow__sub">{{ node.sub }}</span>
+        }
+      </li>
+    }
+  </ol>
+  @if (caption()) {
+    <figcaption class="flow__caption prose" [innerHTML]="caption()"></figcaption>
+  }
+</figure>
