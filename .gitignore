@@ -1,0 +1,27 @@
+# Segredos e ambiente local
+.env
+
+# Build Maven
+**/target/
+.mvn/wrapper/maven-wrapper.jar
+
+# Node / Angular
+**/node_modules/
+documentation-website/dist/
+documentation-website/.angular/
+
+# Logs da aplicação
+**/*.log
+**/logs/
+
+# Dados locais do Grafana (bind mount)
+grafana.data/
+
+# IDE e sistema
+.idea/
+*.iml
+*.iws
+*.ipr
+.vscode/
+.DS_Store
+Thumbs.db
