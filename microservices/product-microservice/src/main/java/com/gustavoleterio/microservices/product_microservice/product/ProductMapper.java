@@ -10,6 +10,7 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class ProductMapper {
     public ProductResponse toProductResponse(Product product) {
+        Category category = product.getCategory();
         return new ProductResponse(
                 product.getId(),
                 product.getName(),
@@ -17,9 +18,9 @@ public class ProductMapper {
                 product.getPrice(),
                 product.getStock(),
                 product.getImageUrl(),
-                product.getCategory().getId(),
-                product.getCategory().getName(),
-                product.getCategory().getDescription());
+                category == null ? null : category.getId(),
+                category == null ? null : category.getName(),
+                category == null ? null : category.getDescription());
     }
 
     public Product toProduct(ProductRequest productRequest) {

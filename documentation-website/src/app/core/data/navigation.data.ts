@@ -189,6 +189,21 @@ export const NAVIGATION: NavTopic[] = [
     ],
   },
   {
+    id: 'testes',
+    title: 'Testes',
+    icon: 'check',
+    description: 'O que cada teste verifica, por que ele existe e o código do método.',
+    basePath: '/testes',
+    pages: [
+      {
+        title: 'Catálogo de testes',
+        path: '/testes',
+        summary: 'Testes unitários e de contrato HTTP, separados por módulo, com busca.',
+        keywords: ['junit', 'mockito', 'mockmvc', 'teste', 'testes', 'validação', '404', '409'],
+      },
+    ],
+  },
+  {
     id: 'arquitetura',
     title: 'Arquitetura',
     icon: 'network',

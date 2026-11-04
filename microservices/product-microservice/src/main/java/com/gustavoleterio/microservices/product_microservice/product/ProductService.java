@@ -24,7 +24,8 @@ public class ProductService {
     
     public List<ProductResponse> getProductsByCategoryId(Integer categoryId) {
         categoryService.getCategoryById(categoryId); // Check if the category exists
-        return repository.findByCategoryId(categoryId).orElseThrow(() -> new ProductNotFoundException("Products not found with category id: " + categoryId)).stream()
+        // A category without products is a valid state: returns an empty list (200), not 404
+        return repository.findByCategoryId(categoryId).stream()
             .map(mapper::toProductResponse)
             .toList();
     }

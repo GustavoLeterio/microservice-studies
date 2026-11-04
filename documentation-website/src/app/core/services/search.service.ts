@@ -1,11 +1,12 @@
 import { Injectable, computed, inject } from '@angular/core';
+import { TEST_CASES, TEST_MODULES } from '../../shared/data/tests';
 import { servicesFor } from '../../shared/data/system';
 import { HttpMethod, SERVICE_KIND_LABEL, SERVICE_KIND_LABEL_EN } from '../../shared/models/system.models';
 import { NAVIGATION_EN } from '../data/navigation.en';
 import { NAVIGATION } from '../data/navigation.data';
 import { LocaleService } from './locale.service';
 
-export type SearchKind = 'page' | 'service' | 'endpoint';
+export type SearchKind = 'page' | 'service' | 'endpoint' | 'test';
 
 export interface SearchEntry {
   kind: SearchKind;
@@ -18,7 +19,7 @@ export interface SearchEntry {
   haystack: string;
 }
 
-const KIND_WEIGHT: Record<SearchKind, number> = { page: 3, service: 2, endpoint: 1 };
+const KIND_WEIGHT: Record<SearchKind, number> = { page: 3, service: 2, test: 2, endpoint: 1 };
 
 /** Minúsculas e sem acentos, para "configuracao" encontrar "Configuração". */
 export const normalize = (text: string): string =>
@@ -68,6 +69,18 @@ export class SearchService {
           [service.description, ...service.technologies, service.port ?? ''],
         ),
       ),
+      ...TEST_CASES.map((test) => {
+        const moduleName = TEST_MODULES.find((module) => module.id === test.moduleId)?.name[lang] ?? test.moduleId;
+        const title = test.anchor ? `${test.anchor} ${test.method}` : test.method;
+        return entry(
+          'test',
+          title,
+          `${moduleName} · ${test.className}`,
+          '/testes',
+          [test.summary[lang], test.reason[lang], test.method, test.anchor ?? '', test.className, test.file],
+          { fragment: test.id },
+        );
+      }),
       ...services.flatMap((service) =>
         (service.endpointGroups ?? []).flatMap((group) =>
           group.endpoints.map((endpoint) =>

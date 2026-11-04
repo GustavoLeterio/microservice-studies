@@ -1,0 +1,113 @@
+@use 'mixins' as *;
+
+.filters {
+  display: grid;
+  grid-template-columns: minmax(180px, 280px) 1fr;
+  gap: 0.8rem;
+
+  @include down(md) {
+    grid-template-columns: 1fr;
+  }
+
+  label {
+    display: flex;
+    flex-direction: column;
+    gap: 0.3rem;
+    font-size: 0.78rem;
+    font-weight: 700;
+    color: var(--text-muted);
+  }
+
+  select,
+  input {
+    height: 40px;
+    padding: 0 0.7rem;
+    border: 1px solid var(--border-strong);
+    border-radius: var(--radius);
+    background: var(--surface);
+  }
+}
+
+.count,
+.module-lead,
+.class-block__lead,
+.empty {
+  color: var(--text-muted);
+}
+
+.count {
+  margin-top: 0.7rem;
+  font-size: 0.85rem;
+}
+
+.module-lead {
+  margin-bottom: 1.2rem;
+}
+
+.class-block {
+  scroll-margin-top: calc(var(--header-h) + 16px);
+
+  & + & {
+    margin-top: 1.6rem;
+  }
+
+  h3 {
+    margin-bottom: 0.35rem;
+    font-size: 1.05rem;
+  }
+}
+
+.class-block__lead {
+  margin-bottom: 0.8rem;
+  font-size: 0.92rem;
+}
+
+.tests {
+  display: flex;
+  flex-direction: column;
+  gap: 0.8rem;
+}
+
+.test {
+  scroll-margin-top: calc(var(--header-h) + 16px);
+  padding: 0.9rem 1rem 0.2rem;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  background: var(--surface);
+
+  p {
+    margin: 0.45rem 0;
+    font-size: 0.92rem;
+  }
+
+  details {
+    margin: 0.6rem 0 0.8rem;
+  }
+
+  summary {
+    cursor: pointer;
+    font-size: 0.82rem;
+    font-weight: 700;
+    color: var(--accent);
+  }
+}
+
+.test__header {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.test__anchor {
+  @include pill(var(--accent));
+  font-size: 0.72rem;
+}
+
+.test__method {
+  font-size: 0.84rem;
+}
+
+:target {
+  border-color: var(--accent);
+}

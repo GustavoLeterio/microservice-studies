@@ -1,0 +1,67 @@
+<app-doc-layout spyKey="tests-catalog">
+  <app-page-header [heading]="ui().testsTitle" [lead]="ui().testsLead" />
+
+  <app-section sectionId="organizacao" [heading]="ui().testsHow">
+    <p>{{ ui().testsHowLead }}</p>
+    <app-flow [nodes]="layers()" [caption]="ui().testsLayerCaption" />
+    <app-callout variant="info">
+      <p>{{ ui().testsOutside }}</p>
+    </app-callout>
+  </app-section>
+
+  <app-section sectionId="busca" [heading]="ui().filters">
+    <div class="filters">
+      <label>
+        {{ ui().testsModule }}
+        <select [value]="moduleFilter()" (change)="moduleFilter.set($any($event.target).value)">
+          <option value="ALL">{{ ui().all }}</option>
+          @for (module of modules; track module.id) {
+            <option [value]="module.id">{{ text(module.name) }}</option>
+          }
+        </select>
+      </label>
+      <label class="filters__search">
+        {{ ui().search }}
+        <input
+          type="search"
+          [placeholder]="ui().testsSearch"
+          [value]="query()"
+          (input)="query.set($any($event.target).value)"
+        />
+      </label>
+    </div>
+    <p class="count">{{ matchCount() }} {{ ui().testsCount }}</p>
+  </app-section>
+
+  @for (group of groups(); track group.id) {
+    <app-section [sectionId]="group.id" [heading]="group.name">
+      <p class="module-lead">{{ group.summary }}</p>
+      @for (klass of group.classes; track klass.slug) {
+        <section class="class-block" [id]="klass.slug">
+          <h3>{{ klass.name }}</h3>
+          <p class="class-block__lead">{{ klass.summary }}</p>
+          <div class="tests">
+            @for (test of klass.tests; track test.id) {
+              <article class="test" [id]="test.id">
+                <header class="test__header">
+                  @if (test.anchor) {
+                    <span class="test__anchor">{{ test.anchor }}</span>
+                  }
+                  <code class="test__method">{{ test.method }}</code>
+                </header>
+                <p><strong>{{ ui().whatItDoes }}</strong> {{ text(test.summary) }}</p>
+                <p><strong>{{ ui().testsWhy }}</strong> {{ text(test.reason) }}</p>
+                <details [open]="isOpen(test.id)">
+                  <summary>{{ ui().testsCode }}</summary>
+                  <app-code-block language="java" [code]="test.code" [file]="test.file" />
+                </details>
+              </article>
+            }
+          </div>
+        </section>
+      }
+    </app-section>
+  } @empty {
+    <p class="empty">{{ ui().testsEmpty }}</p>
+  }
+</app-doc-layout>

@@ -1,5 +1,7 @@
 package com.gustavoleterio.microservices.product_microservice.category;
 
+import java.util.List;
+
 import org.springframework.stereotype.Service;
 import com.gustavoleterio.microservices.product_microservice.product.ProductMapper;
 import lombok.RequiredArgsConstructor;
@@ -26,8 +28,10 @@ public class CategoryMapper {
                 category.getId(),
                 category.getName(),
                 category.getDescription(),
-                category.getProducts().stream()
-                        .map(productMapper::toProductResponse)
-                        .toList());
+                category.getProducts() == null
+                        ? List.of()
+                        : category.getProducts().stream()
+                                .map(productMapper::toProductResponse)
+                                .toList());
     }
 }

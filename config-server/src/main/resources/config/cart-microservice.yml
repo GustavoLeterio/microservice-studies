@@ -1,6 +1,6 @@
 spring:
   mongodb:
-    uri: ${SPRING_MONGODB_URI}
+    uri: ${SPRING_MONGODB_URI:mongodb://localhost:27017/cart_db}
 
 eureka:
   client:

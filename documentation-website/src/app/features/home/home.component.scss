@@ -75,10 +75,10 @@ h1 {
 
 .modes {
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: repeat(3, 1fr);
   gap: 0.9rem;
 
-  @include down(sm) {
+  @include down(md) {
     grid-template-columns: 1fr;
   }
 }

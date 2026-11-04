@@ -1,6 +1,6 @@
 package com.gustavoleterio.microservices.cart_microservice.cart;
 
-import java.util.List;
+import java.util.ArrayList;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
@@ -26,7 +26,7 @@ public class CartService {
     public Cart getOrCreateCart(String customerId) {
         validateIfCustomerExists(customerId);
         return cartRepository.findById(customerId).orElseGet(() -> {
-            Cart cart = new Cart(customerId, List.of());
+            Cart cart = new Cart(customerId, new ArrayList<>());
             return cartRepository.save(cart);
         });
     }
@@ -53,7 +53,7 @@ public class CartService {
 
     public Cart emptyCart(String customerId) {
         Cart cart = getOrCreateCart(customerId);
-        cart.setItems(List.of());
+        cart.setItems(new ArrayList<>());
         return cartRepository.save(cart);
     }
 
@@ -61,7 +61,9 @@ public class CartService {
         validateIfCustomerExists(customerId);
         ProductResponse productResponse = productClient.getProductById(item.getProductId())
                 .orElseThrow(() -> new ProductNotFoundException(item.getProductId()));
-        if (item.getQuantity() > productResponse.stock()) 
+        Integer stock = productResponse.stock();
+        // A product without a known stock cannot be reserved: treat it as out of stock
+        if (stock == null || item.getQuantity() > stock)
             throw new CartException(
                     "Product stock is not enough for product with id: " + item.getProductId(),
                     HttpStatus.BAD_REQUEST);

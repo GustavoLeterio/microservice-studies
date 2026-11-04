@@ -42,12 +42,12 @@ public class CustomerController {
     @PutMapping("/{customerId}")
     public ResponseEntity<Void> updateCustomer(@Valid @RequestBody CustomerRequest entity, 
          @PathVariable String customerId) {
-        ResponseEntity.ok(service.updateCustomer(entity, customerId));
+        service.updateCustomer(entity, customerId);
         return ResponseEntity.accepted().build();
     }
 
     @DeleteMapping("/{customerId}") 
-    public ResponseEntity<Void> deleteCustomer( @Valid @PathVariable String customerId) {
+    public ResponseEntity<Void> deleteCustomer(@PathVariable String customerId) {
         service.deleteCustomer(customerId);
         return ResponseEntity.accepted().build();
     }

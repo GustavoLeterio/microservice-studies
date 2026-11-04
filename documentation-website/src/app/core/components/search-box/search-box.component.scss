@@ -111,6 +111,10 @@
   &[data-kind='service'] {
     --kind: var(--tone-platform);
   }
+
+  &[data-kind='test'] {
+    --kind: var(--tone-observability, var(--accent));
+  }
 }
 
 .result__body {

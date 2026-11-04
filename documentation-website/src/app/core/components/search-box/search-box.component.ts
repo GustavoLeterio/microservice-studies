@@ -32,6 +32,7 @@ export class SearchBoxComponent {
       page: this.ui().kindPage,
       service: this.ui().kindService,
       endpoint: this.ui().kindEndpoint,
+      test: this.ui().kindTest,
     }),
   );
 
